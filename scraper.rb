@@ -43,23 +43,31 @@ def scrape_person(term, url)
     print_name = ( given_names + family_names ).join(' ')
 
     bio = details.css('div.texto_dip')
-    seat_and_party = bio[0].css('ul li div.dip_rojo')
+    seat_and_faction = bio[0].css('ul li div.dip_rojo')
     other = bio[1]
 
-    # FIXMEL these aren't used/don't work at the moment
-    seat = seat_and_party[0].text.tidy
-    party = seat_and_party[0].nil? ? seat_and_party[1].text.tidy : ''
+    seat = seat_and_faction[0].text.tidy
+    faction = seat_and_faction[1].nil? ? '' : seat_and_faction[1].text.tidy
+
+    photo_and_party = person.css('div#datos_diputado')
+    photo = photo_and_party.css('p.logo_grupo img[name=foto]/@src').text
+    if photo
+        photo_url = URI.join(url, photo)
+    end
+
+    party = photo_and_party.css('p.nombre_grupo').text.tidy
 
     dob_string = other.css('ul li').first.text.tidy
-    matched = dob_string.match(/(\d+) de ([^[:space:]]*) de (\d+)/)
-    day, month, year = matched.captures
+    dob = ''
+    if matched = dob_string.match(/(\d+) de ([^[:space:]]*) de (\d+)/)
+        day, month, year = matched.captures
+        dob = "%d-%02d-%02d" % [ year, month(month), day ]
+    end
 
     contacts = bio.css('div.webperso_dip')
 
     email = contacts.xpath('..//a[@href[contains(.,"mailto")]]').text.tidy
     twitter = contacts.xpath('..//a[@href[contains(.,"twitter")]]/@href').text.tidy
-
-    dob = "%d-%02d-%02d" % [ year, month(month), day ]
 
     data = {
         id: url.to_s[/idDiputado=(\d+)/, 1],
@@ -67,12 +75,15 @@ def scrape_person(term, url)
         sort_name: name,
         given_name: given_names.join(' '),
         family_name: family_names.join(' '),
+        faction: faction,
         party: party,
         source: url.to_s,
         dob: dob,
         term: term,
         email: email,
         twitter: twitter,
+        photo: photo_url.to_s,
+        constituency: seat,
     }
 
     #puts "%s - %s - %s - %s\n" % [ name, dob, seat, twitter]
