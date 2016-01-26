@@ -16,8 +16,37 @@ def noko_for(url)
   Nokogiri::HTML(open(url).read)
 end
 
+def scrape_term(term, url)
+  page = noko_for url
+
+  term_details = page.css('div.TITULO_CONTENIDO').text.tidy
+  matched = term_details.match('(^[^\(]*)\s+\(([^\)]*)\)')
+  if matched
+    term_name, dates = matched.captures
+    matched_dates = dates.match('(\d+)\s*-\s*(.*)')
+    if matched_dates
+      start_date, end_date = matched_dates.captures
+    end
+  end
+
+  data = {
+      id: term,
+      name: term_name.tidy,
+      source: url.to_s,
+      start_date: start_date.tidy,
+  }
+
+  if end_date.tidy != 'Actualidad'
+    data[:end_date] = end_date.tidy
+  end
+
+  ScraperWiki.save_sqlite([:id], data, 'terms')
+  scrape_people(term, url)
+end
+
 def scrape_people(term, url)
   page = noko_for url
+
   page.css('div#RESULTADOS_DIPUTADOS div.listado_1 ul li a/@href').each do |href|
     scrape_person(term, URI.join(url, href))
   end
@@ -93,5 +122,5 @@ end
 (1..11).reverse_each do |term, url|
   puts term
   url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados?_piref73_1333056_73_1333049_1333049.next_page=/wc/menuAbecedarioInicio&tipoBusqueda=completo&idLegislatura=%d' % term
-  scrape_people(term, url)
+  scrape_term(term, url)
 end
