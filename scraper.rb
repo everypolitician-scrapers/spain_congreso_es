@@ -68,6 +68,12 @@ def date_of_birth(str)
   "%d-%02d-%02d" % [ year, month(month), day ]
 end
 
+def gender_from(seat)
+  return 'female' if seat.include? 'Diputada'
+  return 'male' if seat.include? 'Diputado'
+  return
+end
+
 def scrape_person(term, url)
     person = noko_for(url)
 
@@ -89,6 +95,7 @@ def scrape_person(term, url)
         sort_name: name,
         given_name: given_names,
         family_name: family_names,
+        gender: gender_from(seat),
         faction: faction,
         party: person.css('div#datos_diputado p.nombre_grupo').text.tidy,
         source: url.to_s,
@@ -101,7 +108,7 @@ def scrape_person(term, url)
     }
     data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
-    #puts "%s - %s - %s - %s\n" % [ name, dob, seat, twitter]
+    # puts "%s - %s - %s - %s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:twitter] ]
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
