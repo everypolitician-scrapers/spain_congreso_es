@@ -85,6 +85,14 @@ def scrape_person(term, url)
     bio, other = details.css('div.texto_dip')
     seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
 
+    unless (fecha_alta = person.xpath('.//div[@class="dip_rojo"][contains(.,"Fecha alta")]')).empty?
+      start_date = fecha_alta.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
+    end
+
+    unless (causo_baja = person.xpath('.//div[@class="dip_rojo"][contains(.,"Causó baja")]')).empty?
+      end_date = causo_baja.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
+    end
+
     data = {
         id: url.to_s[/idDiputado=(\d+)/, 1],
         name: "#{given_names} #{family_names}",
@@ -97,6 +105,8 @@ def scrape_person(term, url)
         source: url.to_s,
         dob: date_of_birth(other.css('ul li').first.text.tidy),
         term: term,
+        start_date: start_date,
+        end_date: end_date,
         email: person.css('div.webperso_dip a[href*="mailto"]').text.tidy,
         twitter: person.css('div.webperso_dip a[href*="twitter.com"]/@href').text,
         facebook: person.css('div.webperso_dip a[href*="facebook.com"]/@href').text,
