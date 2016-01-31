@@ -68,8 +68,7 @@ def scrape_person(term, url)
     details = person.css('div#curriculum')
 
     name = details.css('div.nombre_dip').text
-    family_names, given_names = name.split(/,/).partition { |w| w == w.upcase }
-    print_name = ( given_names + family_names ).join(' ')
+    family_names, given_names = name.split(/,/).map(&:tidy)
 
     bio = details.css('div.texto_dip')
     seat_and_faction = bio[0].css('ul li div.dip_rojo')
@@ -100,10 +99,10 @@ def scrape_person(term, url)
 
     data = {
         id: url.to_s[/idDiputado=(\d+)/, 1],
-        name: print_name,
+        name: "#{given_names} #{family_names}",
         sort_name: name,
-        given_name: given_names.join(' '),
-        family_name: family_names.join(' '),
+        given_name: given_names,
+        family_name: family_names,
         faction: faction,
         party: party,
         source: url.to_s,
