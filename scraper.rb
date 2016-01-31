@@ -70,12 +70,8 @@ def scrape_person(term, url)
     name = details.css('div.nombre_dip').text
     family_names, given_names = name.split(/,/).map(&:tidy)
 
-    bio = details.css('div.texto_dip')
-    seat_and_faction = bio[0].css('ul li div.dip_rojo')
-    other = bio[1]
-
-    seat = seat_and_faction[0].text.tidy
-    faction = seat_and_faction[1].nil? ? '' : seat_and_faction[1].text.tidy
+    bio, other = details.css('div.texto_dip')
+    seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
 
     photo_and_party = person.css('div#datos_diputado')
     photo = photo_and_party.css('p.logo_grupo img[name=foto]/@src').text
