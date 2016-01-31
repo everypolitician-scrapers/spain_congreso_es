@@ -73,14 +73,6 @@ def scrape_person(term, url)
     bio, other = details.css('div.texto_dip')
     seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
 
-    photo_and_party = person.css('div#datos_diputado')
-    photo = photo_and_party.css('p.logo_grupo img[name=foto]/@src').text
-    if photo
-        photo_url = URI.join(url, photo)
-    end
-
-    party = photo_and_party.css('p.nombre_grupo').text.tidy
-
     dob_string = other.css('ul li').first.text.tidy
     dob = ''
     if matched = dob_string.match(/(\d+) de ([^[:space:]]*) de (\d+)/)
@@ -100,15 +92,16 @@ def scrape_person(term, url)
         given_name: given_names,
         family_name: family_names,
         faction: faction,
-        party: party,
+        party: person.css('div#datos_diputado p.nombre_grupo').text.tidy,
         source: url.to_s,
         dob: dob,
         term: term,
         email: email,
         twitter: twitter,
-        photo: photo_url.to_s,
+        photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
         constituency: seat,
     }
+    data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
     #puts "%s - %s - %s - %s\n" % [ name, dob, seat, twitter]
     ScraperWiki.save_sqlite([:id, :term], data)
