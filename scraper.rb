@@ -104,7 +104,7 @@ def scrape_person(term, url)
         email: email,
         twitter: twitter,
         photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
-        constituency: seat,
+        constituency: seat[/Diputad. por (.*)\./, 1],
     }
     data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
