@@ -82,8 +82,7 @@ def scrape_person(term, url)
     name = details.css('div.nombre_dip').text
     family_names, given_names = name.split(/,/).map(&:tidy)
 
-    bio, other = details.css('div.texto_dip')
-    seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
+    seat, faction = details.css('div.texto_dip ul li div.dip_rojo').map(&:text).map(&:tidy)
 
     unless (fecha_alta = person.xpath('.//div[@class="dip_rojo"][contains(.,"Fecha alta")]')).empty?
       start_date = fecha_alta.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
@@ -103,7 +102,7 @@ def scrape_person(term, url)
         faction: faction,
         party: person.css('div#datos_diputado p.nombre_grupo').text.tidy,
         source: url.to_s,
-        dob: date_of_birth(other.css('ul li').first.text.tidy),
+        dob: date_of_birth(person.css('div.titular_historico').xpath('following::div/ul/li').text),
         term: term,
         start_date: start_date,
         end_date: end_date,
