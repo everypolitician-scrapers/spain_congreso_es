@@ -85,10 +85,6 @@ def scrape_person(term, url)
     bio, other = details.css('div.texto_dip')
     seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
 
-    contacts = bio.css('div.webperso_dip')
-    email = contacts.xpath('..//a[@href[contains(.,"mailto")]]').text.tidy
-    twitter = contacts.xpath('..//a[@href[contains(.,"twitter")]]/@href').text.tidy
-
     data = {
         id: url.to_s[/idDiputado=(\d+)/, 1],
         name: "#{given_names} #{family_names}",
@@ -101,14 +97,14 @@ def scrape_person(term, url)
         source: url.to_s,
         dob: date_of_birth(other.css('ul li').first.text.tidy),
         term: term,
-        email: email,
-        twitter: twitter,
+        email: person.css('div.webperso_dip a[href*="mailto"]').text.tidy,
+        twitter: person.css('div.webperso_dip a[href*="twitter.com"]/@href').text,
         photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
         constituency: seat[/Diputad. por (.*)\./, 1],
     }
     data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
-    # puts "%s - %s - %s - %s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:twitter] ]
+    # puts "%s - %s - %s - %s - T:%s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:twitter] ]
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
