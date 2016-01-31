@@ -110,6 +110,8 @@ def scrape_person(term, url)
         email: person.css('div.webperso_dip a[href*="mailto"]').text.tidy,
         twitter: person.css('div.webperso_dip a[href*="twitter.com"]/@href').text,
         facebook: person.css('div.webperso_dip a[href*="facebook.com"]/@href').text,
+        phone: person.css('div.texto_dip').text.match(/Teléfono: (.*)$/).to_a.last.to_s.tidy,
+        fax: person.css('div.texto_dip').text.match(/Fax: (.*)$/).to_a.last.to_s.tidy,
         photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
         constituency: seat[/Diputad. por (.*)\./, 1],
     }
