@@ -62,6 +62,12 @@ def month(str)
   ['','enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'].find_index(str) or raise "Unknown month #{str}".magenta
 end
 
+def date_of_birth(str)
+  matched = str.match(/(\d+) de ([^[:space:]]*) de (\d+)/) or return
+  day, month, year = matched.captures
+  "%d-%02d-%02d" % [ year, month(month), day ]
+end
+
 def scrape_person(term, url)
     person = noko_for(url)
 
@@ -73,15 +79,7 @@ def scrape_person(term, url)
     bio, other = details.css('div.texto_dip')
     seat, faction = bio.css('ul li div.dip_rojo').map(&:text).map(&:tidy)
 
-    dob_string = other.css('ul li').first.text.tidy
-    dob = ''
-    if matched = dob_string.match(/(\d+) de ([^[:space:]]*) de (\d+)/)
-        day, month, year = matched.captures
-        dob = "%d-%02d-%02d" % [ year, month(month), day ]
-    end
-
     contacts = bio.css('div.webperso_dip')
-
     email = contacts.xpath('..//a[@href[contains(.,"mailto")]]').text.tidy
     twitter = contacts.xpath('..//a[@href[contains(.,"twitter")]]/@href').text.tidy
 
@@ -94,7 +92,7 @@ def scrape_person(term, url)
         faction: faction,
         party: person.css('div#datos_diputado p.nombre_grupo').text.tidy,
         source: url.to_s,
-        dob: dob,
+        dob: date_of_birth(other.css('ul li').first.text.tidy),
         term: term,
         email: email,
         twitter: twitter,
