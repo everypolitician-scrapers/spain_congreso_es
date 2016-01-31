@@ -99,12 +99,13 @@ def scrape_person(term, url)
         term: term,
         email: person.css('div.webperso_dip a[href*="mailto"]').text.tidy,
         twitter: person.css('div.webperso_dip a[href*="twitter.com"]/@href').text,
+        facebook: person.css('div.webperso_dip a[href*="facebook.com"]/@href').text,
         photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
         constituency: seat[/Diputad. por (.*)\./, 1],
     }
     data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
-    # puts "%s - %s - %s - %s - T:%s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:twitter] ]
+    # puts "%s - %s - %s - %s - F:%s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:facebook] ]
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
