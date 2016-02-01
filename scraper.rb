@@ -122,8 +122,8 @@ def scrape_person(term, url)
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-(1..11).reverse_each do |term, url|
-  puts term
+# (1..11).reverse_each do |term, url|
+  term = 11
   url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados?_piref73_1333056_73_1333049_1333049.next_page=/wc/menuAbecedarioInicio&tipoBusqueda=completo&idLegislatura=%d' % term
   scrape_term(term, url)
-end
+# end
