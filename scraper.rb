@@ -62,65 +62,68 @@ def month(str)
   ['','enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'].find_index(str) or raise "Unknown month #{str}".magenta
 end
 
+def date_of_birth(str)
+  matched = str.match(/(\d+) de ([^[:space:]]*) de (\d+)/) or return
+  day, month, year = matched.captures
+  "%d-%02d-%02d" % [ year, month(month), day ]
+end
+
+def gender_from(seat)
+  return 'female' if seat.include? 'Diputada'
+  return 'male' if seat.include? 'Diputado'
+  return
+end
+
 def scrape_person(term, url)
     person = noko_for(url)
 
     details = person.css('div#curriculum')
 
     name = details.css('div.nombre_dip').text
-    family_names, given_names = name.split(/,/).partition { |w| w == w.upcase }
-    print_name = ( given_names + family_names ).join(' ')
+    family_names, given_names = name.split(/,/).map(&:tidy)
 
-    bio = details.css('div.texto_dip')
-    seat_and_faction = bio[0].css('ul li div.dip_rojo')
-    other = bio[1]
+    seat, group = details.css('div.texto_dip ul li div.dip_rojo').map(&:text).map(&:tidy)
+    faction, faction_id = group.match(/(.*?) \((.*?)\)/).captures.to_a.map(&:tidy) rescue nil
 
-    seat = seat_and_faction[0].text.tidy
-    faction = seat_and_faction[1].nil? ? '' : seat_and_faction[1].text.tidy
-
-    photo_and_party = person.css('div#datos_diputado')
-    photo = photo_and_party.css('p.logo_grupo img[name=foto]/@src').text
-    if photo
-        photo_url = URI.join(url, photo)
+    unless (fecha_alta = person.xpath('.//div[@class="dip_rojo"][contains(.,"Fecha alta")]')).empty?
+      start_date = fecha_alta.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
     end
 
-    party = photo_and_party.css('p.nombre_grupo').text.tidy
-
-    dob_string = other.css('ul li').first.text.tidy
-    dob = ''
-    if matched = dob_string.match(/(\d+) de ([^[:space:]]*) de (\d+)/)
-        day, month, year = matched.captures
-        dob = "%d-%02d-%02d" % [ year, month(month), day ]
+    unless (causo_baja = person.xpath('.//div[@class="dip_rojo"][contains(.,"Causó baja")]')).empty?
+      end_date = causo_baja.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
     end
-
-    contacts = bio.css('div.webperso_dip')
-
-    email = contacts.xpath('..//a[@href[contains(.,"mailto")]]').text.tidy
-    twitter = contacts.xpath('..//a[@href[contains(.,"twitter")]]/@href').text.tidy
 
     data = {
         id: url.to_s[/idDiputado=(\d+)/, 1],
-        name: print_name,
+        name: "#{given_names} #{family_names}",
         sort_name: name,
-        given_name: given_names.join(' '),
-        family_name: family_names.join(' '),
+        given_name: given_names,
+        family_name: family_names,
+        gender: gender_from(seat),
+        party: person.css('div#datos_diputado p.nombre_grupo').text.tidy,
+        faction_id: faction_id,
         faction: faction,
-        party: party,
         source: url.to_s,
-        dob: dob,
+        dob: date_of_birth(person.css('div.titular_historico').xpath('following::div/ul/li').text),
         term: term,
-        email: email,
-        twitter: twitter,
-        photo: photo_url.to_s,
-        constituency: seat,
+        start_date: start_date,
+        end_date: end_date,
+        email: person.css('div.webperso_dip a[href*="mailto"]').text.tidy,
+        twitter: person.css('div.webperso_dip a[href*="twitter.com"]/@href').text,
+        facebook: person.css('div.webperso_dip a[href*="facebook.com"]/@href').text,
+        phone: person.css('div.texto_dip').text.match(/Teléfono: (.*)$/).to_a.last.to_s.tidy,
+        fax: person.css('div.texto_dip').text.match(/Fax: (.*)$/).to_a.last.to_s.tidy,
+        photo: person.css('div#datos_diputado p.logo_grupo img[name=foto]/@src').text,
+        constituency: seat[/Diputad. por (.*)\./, 1],
     }
+    data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
-    #puts "%s - %s - %s - %s\n" % [ name, dob, seat, twitter]
+    # puts "%s - %s - %s - %s - F:%s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:facebook] ]
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-(1..11).reverse_each do |term, url|
-  puts term
+# (1..11).reverse_each do |term, url|
+  term = 11
   url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados?_piref73_1333056_73_1333049_1333049.next_page=/wc/menuAbecedarioInicio&tipoBusqueda=completo&idLegislatura=%d' % term
   scrape_term(term, url)
-end
+# end
