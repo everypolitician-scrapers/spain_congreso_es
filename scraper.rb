@@ -74,6 +74,29 @@ def gender_from(seat)
   return
 end
 
+# use the first term they were elected in and the id from that term as the unique id
+# although for people with only one term the page in question seems to fall over so
+# fall back to the current term and id for those people as it's presumably their first
+def get_unique_id(url)
+    refs = noko_for(url)
+
+    term_map = {}
+    refs.css('div.btn_ficha a/@href').each do |href|
+        term, id = href.to_s.match(/idLegislatura=(\d+).*idDiputado=(\d+)/).captures
+        term_map[term.to_i] = id
+    end
+
+    # the all terms page seems to be very unreliable so if we can't find what we expect
+    # then we should quite rather than trying to make up an incorrect ID
+    if term_map.empty?
+        return nil
+    end
+
+    min_term = term_map.keys.min
+    id = "#{min_term}_#{term_map[min_term]}"
+    return id
+end
+
 def scrape_person(term, url)
     person = noko_for(url)
 
@@ -93,8 +116,17 @@ def scrape_person(term, url)
       end_date = causo_baja.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
     end
 
+    all_terms_url = person.css('div.soporte_year li a/@href').text.match('.*listadoFichas.*').to_a.first.to_s
+    id = get_unique_id(all_terms_url)
+
+    # don't save things f we don't get an id
+    if id.nil?
+        return
+    end
+
     data = {
-        id: url.to_s[/idDiputado=(\d+)/, 1],
+        id: id,
+        iddiputado: url.to_s[/idDiputado=(\d+)/, 1],
         name: "#{given_names} #{family_names}",
         sort_name: name,
         given_name: given_names,
@@ -118,12 +150,11 @@ def scrape_person(term, url)
     }
     data[:photo] = URI.join(url, data[:photo]).to_s unless data[:photo].to_s.empty?
 
-    # puts "%s - %s - %s - %s - F:%s\n" % [ data[:name], data[:dob], data[:constituency], data[:gender], data[:facebook] ]
+    puts "%s - %s\n" % [ data[:name], data[:id] ]
     ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-# (1..11).reverse_each do |term, url|
-  term = 11
+(1..11).reverse_each do |term, url|
   url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados?_piref73_1333056_73_1333049_1333049.next_page=/wc/menuAbecedarioInicio&tipoBusqueda=completo&idLegislatura=%d' % term
   scrape_term(term, url)
-# end
+end
