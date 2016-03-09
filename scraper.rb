@@ -77,7 +77,12 @@ end
 # use the first term they were elected in and the id from that term as the unique id
 # although for people with only one term the page in question seems to fall over so
 # fall back to the current term and id for those people as it's presumably their first
-def get_unique_id(url)
+def get_unique_id(url, page_term, page_iddiputado)
+    id = ScraperWiki::select('id FROM term_map WHERE iddiputado is ? AND term is ?', [page_iddiputado, page_term]) rescue nil
+    unless id.nil?
+        return id[:id]
+    end
+
     refs = noko_for(url)
 
     term_map = {}
@@ -93,7 +98,16 @@ def get_unique_id(url)
     end
 
     min_term = term_map.keys.min
+
     id = "#{min_term}_#{term_map[min_term]}"
+    for term in term_map.keys
+        data = {
+            term: term,
+            iddiputado: term_map[term],
+            id: id,
+        }
+        ScraperWiki.save_sqlite([:term, :iddiputado], data, 'term_map')
+    end
     return id
 end
 
@@ -116,8 +130,9 @@ def scrape_person(term, url)
       end_date = causo_baja.text.match(/(\d+)\/(\d+)\/(\d+)\./).captures.reverse.join("-")
     end
 
+    iddiputado = url.to_s[/idDiputado=(\d+)/, 1]
     all_terms_url = person.css('div.soporte_year li a/@href').text.match('.*listadoFichas.*').to_a.first.to_s
-    id = get_unique_id(all_terms_url)
+    id = get_unique_id(all_terms_url, term, iddiputado)
 
     # don't save things f we don't get an id
     if id.nil?
@@ -126,7 +141,7 @@ def scrape_person(term, url)
 
     data = {
         id: id,
-        iddiputado: url.to_s[/idDiputado=(\d+)/, 1],
+        iddiputado: iddiputado,
         name: "#{given_names} #{family_names}",
         sort_name: name,
         given_name: given_names,
