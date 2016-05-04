@@ -170,7 +170,7 @@ def scrape_person(term, url)
   unless ENV.key?('RESCRAPE_ALL') or (ENV.key?('RESCRAPE_TERM') and ENV['RESCRAPE_TERM'] == term)
     # don't scrape data we already have
     name = ScraperWiki::select('name FROM data WHERE iddiputado is ? AND term is ?', [iddiputado, term]) rescue nil
-    unless name.empty?
+    unless name.nil? or name.empty?
       #name = name[0]['name']
       #puts "skipping #{name} for #{term}"
       return
