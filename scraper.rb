@@ -204,7 +204,7 @@ def scrape_person(term, url)
   facebook = ''
   photo = ''
   within('div.titular_historico') do
-    dob = all(:xpath, 'following::div/ul/li')[0].text
+    dob = date_of_birth(all(:xpath, 'following::div/ul/li')[0].text)
   end
 
   # capybara doesn't support enough xpath to do this
