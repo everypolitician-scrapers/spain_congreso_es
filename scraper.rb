@@ -54,7 +54,7 @@ def save_membership_from_url(name, url)
   url = url.match(/(.*)_piref[\d_]+\.(next_page.*)/).captures.join('')
 
   # we can set this to rescrape everything if required
-  unless ENV.key?('RESCRAPE_ALL')
+  unless ENV.key?('MORPH_RESCRAPE_ALL')
     # don't save data again
     cur_name = ScraperWiki::select('name FROM memberships WHERE iddiputado is ? AND term is ?', [iddiputado, term]) rescue nil
     unless cur_name.nil? or cur_name.empty?
@@ -167,7 +167,7 @@ end
 def scrape_person(term, url)
   iddiputado = url.to_s[/idDiputado=(\d+)/, 1]
 
-  unless ENV.key?('RESCRAPE_ALL') or (ENV.key?('RESCRAPE_TERM') and ENV['RESCRAPE_TERM'] == term)
+  unless ENV.key?('MORPH_RESCRAPE_ALL') or (ENV.key?('MORPH_RESCRAPE_TERM') and ENV['MORPH_RESCRAPE_TERM'] == term)
     # don't scrape data we already have
     name = ScraperWiki::select('name FROM data WHERE iddiputado is ? AND term is ?', [iddiputado, term]) rescue nil
     unless name.nil? or name.empty?
