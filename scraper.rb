@@ -209,14 +209,15 @@ def scrape_person(term, url)
 
   # capybara doesn't support enough xpath to do this
   # sensibly so we have to do this the longwinded way
-  if page.has_xpath?('//div[class=webperso_dip]/a')
-    all('//div[class=webperso_dip]/a').each do |link|
+  if page.has_xpath?('//div[@class="webperso_dip"]/div[@class="webperso_dip_parte"|@class="webperso_dip_imagen"]/a')
+    all(:xpath, '//div[@class="webperso_dip"]/div[@class="webperso_dip_parte"|@class="webperso_dip_imagen"]/a').each do |link|
       href = link['href']
       if href.match(/mailto/)
         email = link.text.tidy
       end
       if href.match(/twitter.com/)
-        twitter = href
+        twitter = href.match(/twitter.com\/(.*)$/).captures[0]
+        puts twitter
       end
       if href.match(/facebook.com/)
         facebook = href
