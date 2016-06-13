@@ -12,7 +12,9 @@ Capybara.default_max_wait_time = 5
 
 # images are very slow to load and cause timeouts and
 # as we don't need them skip
+# Also, some pages have JS errors which we don't care about
 options = {
+    js_errors: false,
     timeout: 60,
     phantomjs_options: ['--load-images=no']
 }
