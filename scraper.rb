@@ -79,8 +79,8 @@ end
 # although for people with only one term the page in question seems to fall over so
 # fall back to the current term and id for those people as it's presumably their first
 def get_unique_id(url, page_term, page_iddiputado, name)
-  cur_id = ScraperWiki::select('id FROM memberships WHERE iddiputado is ? AND term is and id <> 0?', [page_iddiputado, page_term]) rescue nil
-  unless cur_id.nil?
+  cur_id = ScraperWiki::select('id FROM memberships WHERE iddiputado is ? AND term is ? and id <> 0', [page_iddiputado, page_term]) rescue nil
+  unless cur_id.nil? or cur_id.empty?
     return cur_id[0][:id]
   end
   sleep(1)
