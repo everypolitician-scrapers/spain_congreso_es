@@ -186,7 +186,14 @@ def scrape_person(term, url)
   seat, group = all('div#curriculum div.texto_dip ul li div.dip_rojo').map(&:text).map(&:tidy)
   faction, faction_id = group.match(/(.*?) \((.*?)\)/).captures.to_a.map(&:tidy) rescue nil
 
-  name = find('div#curriculum div.nombre_dip').text
+  # sometimes the scraper doesn't find the name on the page and rather than stop scraping
+  # everything else just move on to the next person
+  begin
+    name = find('div#curriculum div.nombre_dip').text
+  rescue
+      $stderr.puts "failed to find name element for #{url}"
+    return
+  end
 
   family_names, given_names = name.split(/,/).map(&:tidy)
 
