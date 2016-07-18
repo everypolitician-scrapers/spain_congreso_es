@@ -226,7 +226,6 @@ def scrape_person(term, url)
       end
       if href.match(/twitter.com/)
         twitter = href.match(/twitter.com\/(.*)$/).captures[0]
-        puts twitter
       end
       if href.match(/facebook.com/)
         facebook = href
