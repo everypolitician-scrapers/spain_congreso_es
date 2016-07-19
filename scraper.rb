@@ -41,25 +41,29 @@ class Mirror
 
   attr_accessor :url
 
-  def save_page(url)
-    url = url.match(/(.*)_piref[\d_]+\.(next_page.*)/).captures.join('')
-    sha = Digest::SHA1.hexdigest url
-    path = File.join('.', CACHE_DIR, sha)
+  def sha_url(url)
+    # strip and sha the session variable
+    Digest::SHA1.hexdigest url.gsub(/_piref[\d_]+\./, '')
+  end
+
+  # this visits and saves the page 
+  def visit_and_save_page(url)
+    visit url
+    path = File.join('.', CACHE_DIR, sha_url(url))
 
     return if File.exist?(path)
 
     File.open(path,"w") do |f|
       f.write(page.html)
     end
-    sleep(1)
   end
 
   def save_pages_for_person(url)
-    visit url
+    visit_and_save_page(url)
     all_terms_url = find('div.soporte_year li a')['href'].match('.*listadoFichas.*').to_a.first.to_s
-    visit all_terms_url
+    visit_and_save_page(all_terms_url)
 
-    # this needs to be a map and then an each as otherwise save_page
+    # this needs to be a map and then an each as otherwise visit_and_save_page
     # changes the Capybara context to the saved page and the rest of
     # the map doesn't work
     term_pages = all('div.all_leg').map { |legislature|
@@ -67,11 +71,14 @@ class Mirror
         all('div.btn_ficha a').map { |l| l['href'] }
       end
     }.flatten
-    term_pages.each do |u| save_page(u) end
+    term_pages.each do |u|
+      visit_and_save_page(u)
+      sleep(1)
+    end
   end
 
   def mirror_pages(url)
-    visit url
+    visit_and_save_page(url)
 
     # work out the next page before we visit anywhere else and change
     # the Capybara context
@@ -90,7 +97,6 @@ class Mirror
     end
 
     # the website is a bit fragile to lets not hammer it with requests
-    sleep(2)
     unless next_page.nil?
       mirror_pages(next_page)
     end
