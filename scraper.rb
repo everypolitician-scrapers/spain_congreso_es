@@ -7,6 +7,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'pry'
+require 'everypoliticianbot'
 
 CACHE_DIR = 'cache'
 
@@ -26,7 +27,6 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options)
 end
 
-include Capybara::DSL
 Capybara.default_driver = :poltergeist
 
 
@@ -37,6 +37,8 @@ class String
 end
 
 class Mirror
+  include Capybara::DSL
+
   attr_accessor :url
 
   def save_page(url)
@@ -347,7 +349,10 @@ def scrape_person(term, url)
   ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+include Everypoliticianbot::Github
+with_git_repo('struan/spain_congreso_es', branch: 'mirror-data', message: 'updating mirrored pages') do
+  Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+end
 
 #scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
 #scrape_memberships()
