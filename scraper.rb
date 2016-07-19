@@ -49,6 +49,8 @@ class Mirror
   # this visits and saves the page 
   def visit_and_save_page(url)
     visit url
+    return if page.status_code != 200
+
     path = File.join('.', CACHE_DIR, sha_url(url))
 
     return if File.exist?(path)
