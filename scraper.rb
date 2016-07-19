@@ -1,11 +1,14 @@
 #!/bin/env ruby
 # encoding: utf-8
 
+require 'digest/sha1'
 require 'scraperwiki'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'pry'
+
+CACHE_DIR = 'cache'
 
 Capybara.default_max_wait_time = 5
 
@@ -30,6 +33,65 @@ Capybara.default_driver = :poltergeist
 class String
   def tidy
     self.gsub(/[[:space:]]+/, ' ').strip
+  end
+end
+
+class Mirror
+  attr_accessor :url
+
+  def save_page(url)
+    url = url.match(/(.*)_piref[\d_]+\.(next_page.*)/).captures.join('')
+    sha = Digest::SHA1.hexdigest url
+    path = File.join('.', CACHE_DIR, sha)
+
+    return if File.exist?(path)
+
+    File.open(path,"w") do |f|
+      f.write(page.html)
+    end
+    sleep(1)
+  end
+
+  def save_pages_for_person(url)
+    visit url
+    all_terms_url = find('div.soporte_year li a')['href'].match('.*listadoFichas.*').to_a.first.to_s
+    visit all_terms_url
+
+    # this needs to be a map and then an each as otherwise save_page
+    # changes the Capybara context to the saved page and the rest of
+    # the map doesn't work
+    term_pages = all('div.all_leg').map { |legislature|
+      within(legislature) do
+        all('div.btn_ficha a').map { |l| l['href'] }
+      end
+    }.flatten
+    term_pages.each do |u| save_page(u) end
+  end
+
+  def mirror_pages(url)
+    visit url
+
+    # work out the next page before we visit anywhere else and change
+    # the Capybara context
+    pagination = all('div.paginacion').first
+    next_page = nil
+    if pagination.has_xpath?(".//a[contains(.,'Página Siguiente')]")
+      within (pagination) do
+        next_page = find(:xpath, ".//a[contains(.,'Página Siguiente')]")['href']
+      end
+    end
+
+    page_links = all('div#RESULTADOS_DIPUTADOS div.listado_1 ul li a').map { |l| l['href'] }
+
+    page_links.each do |link|
+      save_pages_for_person(link)
+    end
+
+    # the website is a bit fragile to lets not hammer it with requests
+    sleep(2)
+    unless next_page.nil?
+      mirror_pages(next_page)
+    end
   end
 end
 
@@ -285,5 +347,7 @@ def scrape_person(term, url)
   ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
-scrape_memberships()
+Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+
+#scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+#scrape_memberships()
