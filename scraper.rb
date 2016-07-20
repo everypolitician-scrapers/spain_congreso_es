@@ -360,7 +360,11 @@ end
 
 include Everypoliticianbot::Github
 with_git_repo('struan/spain_congreso_es', branch: 'mirror-data', message: 'updating mirrored pages') do
-  Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+  begin
+    Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+  rescue
+    puts "failed to mirror all pages"
+  end
 end
 
 #scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
