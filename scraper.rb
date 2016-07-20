@@ -1,11 +1,15 @@
 #!/bin/env ruby
 # encoding: utf-8
 
+require 'digest/sha1'
 require 'scraperwiki'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'pry'
+require 'everypoliticianbot'
+
+CACHE_DIR = 'cache'
 
 Capybara.default_max_wait_time = 5
 
@@ -23,13 +27,82 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options)
 end
 
-include Capybara::DSL
 Capybara.default_driver = :poltergeist
 
 
 class String
   def tidy
     self.gsub(/[[:space:]]+/, ' ').strip
+  end
+end
+
+class Mirror
+  include Capybara::DSL
+
+  attr_accessor :url
+
+  def sha_url(url)
+    # strip and sha the session variable
+    Digest::SHA1.hexdigest url.gsub(/_piref[\d_]+\./, '')
+  end
+
+  # this visits and saves the page 
+  def visit_and_save_page(url)
+    visit url
+    return if page.status_code != 200
+
+    path = File.join('.', CACHE_DIR, sha_url(url))
+
+    return if File.exist?(path)
+
+    File.open(path,"w") do |f|
+      f.write(page.html)
+    end
+  end
+
+  def save_pages_for_person(url)
+    visit_and_save_page(url)
+    return if not page.has_css?('div.soporte_year li a')
+    all_terms_url = find('div.soporte_year li a')['href'].match('.*listadoFichas.*').to_a.first.to_s
+    visit_and_save_page(all_terms_url)
+
+    # this needs to be a map and then an each as otherwise visit_and_save_page
+    # changes the Capybara context to the saved page and the rest of
+    # the map doesn't work
+    term_pages = all('div.all_leg').map { |legislature|
+      within(legislature) do
+        all('div.btn_ficha a').map { |l| l['href'] }
+      end
+    }.flatten
+    term_pages.each do |u|
+      visit_and_save_page(u)
+      sleep(1)
+    end
+  end
+
+  def mirror_pages(url)
+    visit_and_save_page(url)
+
+    # work out the next page before we visit anywhere else and change
+    # the Capybara context
+    pagination = all('div.paginacion').first
+    next_page = nil
+    if pagination.has_xpath?(".//a[contains(.,'Página Siguiente')]")
+      within (pagination) do
+        next_page = find(:xpath, ".//a[contains(.,'Página Siguiente')]")['href']
+      end
+    end
+
+    page_links = all('div#RESULTADOS_DIPUTADOS div.listado_1 ul li a').map { |l| l['href'] }
+
+    page_links.each do |link|
+      save_pages_for_person(link)
+    end
+
+    # the website is a bit fragile to lets not hammer it with requests
+    unless next_page.nil?
+      mirror_pages(next_page)
+    end
   end
 end
 
@@ -285,5 +358,14 @@ def scrape_person(term, url)
   ScraperWiki.save_sqlite([:id, :term], data)
 end
 
-scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
-scrape_memberships()
+include Everypoliticianbot::Github
+with_git_repo('struan/spain_congreso_es', branch: 'mirror-data', message: 'updating mirrored pages') do
+  begin
+    Mirror.new.mirror_pages('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+  rescue
+    puts "failed to mirror all pages"
+  end
+end
+
+#scrape_people('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+#scrape_memberships()
