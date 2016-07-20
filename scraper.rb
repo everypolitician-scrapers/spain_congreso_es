@@ -62,6 +62,7 @@ class Mirror
 
   def save_pages_for_person(url)
     visit_and_save_page(url)
+    return if not page.has_css?('div.soporte_year li a')
     all_terms_url = find('div.soporte_year li a')['href'].match('.*listadoFichas.*').to_a.first.to_s
     visit_and_save_page(all_terms_url)
 
