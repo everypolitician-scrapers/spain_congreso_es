@@ -1,0 +1,10 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?next_page=/wc/fichaDiputado&idLegislatura=11&idDiputado=309
+response:
+  status:
+    message: OK
+    code: 200
+  date:
+  - Sat, 06 Aug 2016 21:15:08 GMT
