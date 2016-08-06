@@ -1,0 +1,10 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?next_page=/wc/fichaDiputado&idLegislatura=3&idDiputado=118
+response:
+  status:
+    message: OK
+    code: 200
+  date:
+  - Sat, 06 Aug 2016 21:22:20 GMT
