@@ -384,7 +384,687 @@ Search by form
 </tbody></table></td>
 <td valign="top" style="width:100%">
 <table width="100%" id="rg8647" border="0" cellpadding="0" cellspacing="0" summary=""><tbody><tr><td></td></tr></tbody></table><table width="100%" id="rg8649" border="0" cellpadding="0" cellspacing="0" summary=""><tbody><tr align="LEFT">
-<td valign="top" style="padding:0px 0px 0px 0px;width:100%;"><div id="p73_1333155_73_1333154_1333154"></div></td></tr>
+<td valign="top" style="padding:0px 0px 0px 0px;width:100%;"><div id="p73_1333155_73_1333154_1333154"><table border="0" width="100%" cellpadding="0" cellspacing="0" class="RegionNoBorder"><tbody><tr><td class="RegionHeaderColor" width="100%" dir="LTR"><div id="pcnt73_1333155_73_1333154_1333154">
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+    
+
+
+
+
+
+
+       
+
+
+
+       
+
+
+
+
+    
+
+
+   
+     
+   
+<script language="JavaScript" type="text/javascript">
+
+    function mostrarIniciativas(){
+    
+        document.getElementById( "capa_intervenciones").style.display = "none";
+        if(document.getElementById("capa_iniciativas") != null ){    
+            if(document.getElementById("capa_iniciativas").style.display == 'none'){
+                document.getElementById("capa_iniciativas").style.display = 'block';  
+            } else {
+                document.getElementById("capa_iniciativas").style.display = 'none';    
+            }
+        }
+    }
+    
+    function mostrarIntervenciones(){
+    
+        document.getElementById("capa_iniciativas").style.display = "none";
+        if(document.getElementById("capa_intervenciones")!= null ){    
+            if(document.getElementById("capa_intervenciones").style.display == 'none'){
+                document.getElementById("capa_intervenciones").style.display = 'block';  
+            } else {
+                document.getElementById("capa_intervenciones").style.display = 'none';    
+            }
+        }
+    }
+    
+    function noElegido( capaElegida ){            
+        
+        if( document.getElementById( capaElegida ) == document.getElementById( "spanIniciativas" ) ){            
+            document.getElementById( "spanIntervenciones" ).className = "noElegido";
+            document.getElementById( "spanIniciativas" ).className = "elegido";            
+        } else {                            
+            document.getElementById( "spanIniciativas" ).className = "noElegido";
+            document.getElementById( "spanIntervenciones" ).className = "elegido";
+        }
+    
+    }
+    
+    function activarEnlace(elemento){
+ 
+        var elem = document.getElementById(elemento);                  
+        elem.style.color='#FFFFFF';
+        elem.style.text='none';
+        elem.style.background='#9C1E3D';
+  }
+  
+   function desactivarEnlace( elemento ){
+        
+        var elem = document.getElementById(elemento);     
+        
+        elem.className = "";
+        elem.style.color='#000000';
+        elem.style.text='';
+        elem.style.background='#F3F3F3';
+       
+  }
+  
+  function cambiarEstilos( elemento, tipo ){
+  
+    if( tipo == 'iniciativas' ){
+        var meses = new Array(  "enlaceUltimas", "enlaceOrales", "enlaceEscritas", "enlaceInformes", "enlaceOrganos", "enlaceTodas" );
+    } else if ( tipo == 'iniciativasAnteriores' ){
+        var meses = new Array(  "enlaceOrales", "enlaceEscritas", "enlaceInformes", "enlaceOrganos", "enlaceTodas" );
+    } else if ( tipo == 'intervenciones' ){
+        var meses = new Array(  "enlaceUltimas", "enlaceTipo", "enlaceCrono" );
+    } else {
+        var meses = new Array(  "enlaceTipo", "enlaceCrono" );
+    }
+
+    for( i = 0; i < meses.length; i++ ){
+        
+        if( elemento == meses[i] ){                    
+            activarEnlace( meses[i] );
+        } else {                    
+            desactivarEnlace( meses[i] );
+        }                
+    }          
+  }
+  
+  
+  
+  function letrasBlancas( elemento ){
+  
+    var elemento = document.getElementbyId( elemento );
+    elemento.style.color = "#FFFFFF";
+    
+  }
+        
+</script>
+<div class="ancho100">
+  <div class="soporte_year">
+    <ul>
+      
+      <li>
+        
+        <span id="spanFicha" class="elegido">
+          Ficha
+        </span>
+        
+      </li>
+      |
+      
+      <li>
+        
+        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/listadoFichas?idDiputado=122&amp;idLegislatura=7" class="">Todas las legislaturas</a>
+        
+      </li>
+      |
+      <li>
+        
+        <span id="spanIniciativas" onclick="javascript:mostrarIniciativas();noElegido( &quot;spanIniciativas&quot; );" class="noElegido">
+          Iniciativas parlamentarias
+        </span>
+        
+      </li>
+      |
+      <li>
+        
+        <span id="spanIntervenciones" onclick="javascript:mostrarIntervenciones();noElegido( &quot;spanIntervenciones&quot; );" class="noElegido">
+          Intervenciones parlamentarias
+        </span>
+        
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="espcacio_blanco"></div>
+
+<div id="capa_iniciativas" class="soporte_meses_dipu" style="display:none;">
+  <ul>    
+    
+
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=201&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceOrales">Preguntas orales</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=202&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceEscritas">Preguntas escritas</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=204&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceInformes">Solicitud de informes</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=203&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceComparecencias">Solicitud de comparecencias</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=205&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceOrganos">Solicitudes de creación de órganos</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=1&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceTodas">Todas</a></span>
+    </li>    
+  </ul>
+</div>
+
+<div id="capa_intervenciones" class="soporte_meses_dipu" style="display:none;">
+  <ul>
+  
+  
+  
+  
+    
+     
+        
+                                
+                        
+            
+        <li>
+                                <span class="">
+                                        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=122&amp;tipoIntervenciones=tipo&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceTipo">Por tipo de iniciativa</a>
+                                </span>  
+        &nbsp;|&nbsp;
+        </li>
+        
+            
+        
+            
+        <li>
+                <span class="">
+                        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=122&amp;tipoIntervenciones=crono&amp;idLegislatura=7&amp;muestraLeg=false" class="" id="enlaceCrono">Por Orden cronológico</a>
+                </span>
+        </li> 
+  </ul>
+</div>
+
+	
+
+<noscript>
+
+&lt;div id="capa_iniciativas" class="soporte_meses_dipu" style="display:block;"&gt;
+  &lt;ul&gt;    
+    
+
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=201&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceOrales' &gt;Preguntas orales&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=202&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceEscritas' &gt;Preguntas escritas&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=204&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceInformes' &gt;Solicitud de informes&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=203&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceComparecencias' &gt;Solicitud de comparecencias&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=205&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceOrganos' &gt;Solicitudes de creación de órganos&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class=""&gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=1&amp;idDiputado=122&amp;origen=diputados&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceTodas' &gt;Todas&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;    
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div id="capa_intervenciones" class="soporte_meses_dipu" style="display:block;"&gt;
+  &lt;ul&gt;
+ 
+ 
+     
+    
+        
+                                
+                        
+            
+        &lt;li&gt;
+                                &lt;span class="" &gt;
+                                        &lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=122&amp;tipoIntervenciones=tipo&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceTipo' &gt;Por tipo de iniciativa&lt;/a&gt;
+                                &lt;/span&gt;  
+        &amp;nbsp;|&amp;nbsp;
+        &lt;/li&gt;
+        
+            
+        
+            
+        &lt;li&gt;
+                &lt;span class="" &gt;
+                        &lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=122&amp;tipoIntervenciones=crono&amp;idLegislatura=7&amp;muestraLeg=false' class='' id = 'enlaceCrono' &gt;Por Orden cronológico&lt;/a&gt;
+                &lt;/span&gt;
+        &lt;/li&gt; 
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+
+
+</noscript>    
+    <div id="datos_diputado">
+        <meta name="Title" content="Álvarez Álvarez, Amador">
+        <meta name="Description" content="Ficha del Diputado de Álvarez Álvarez, Amador">
+        
+                                
+        
+        
+        <p class="logo_grupo"><img name="foto" src="/wc/htdocs/web/img/diputados/122_7.jpg" alt="Foto de Álvarez Álvarez, Amador" onerror="diputadoNo_disp( '/wc/htdocs/web' ); return true;"></p>
+        
+        
+       
+        
+        	
+	            
+	            <p class="logo_grupo"><a href="http://www.pp.es/" title="(Este enlace se abre en una ventana nueva)" target="_blank"><img src="/wc/htdocs/web/img/logos_grandes/201_7.gif" alt="Logo de PP. (Este enlace se abre en una ventana nueva)"></a></p>
+        		
+        
+        
+        <p class="nombre_grupo">PP</p>
+        
+    </div>
+    
+    <div id="curriculum">
+        <div class="principal">VII Legislatura ( 2000-2004 ) </div>
+        <div class="nombre_dip">Álvarez Álvarez,&nbsp;Amador</div>
+        <div class="texto_dip">
+        
+            <ul>
+                <li>
+                    <div class="dip_rojo">                    
+                    
+                      Diputado por 
+                    
+                    Cáceres.
+                    </div>            
+                
+                    
+                                <div class="dip_rojo"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/composicionGrupo&amp;idGrupo=201&amp;idTipo=2&amp;idLegislatura=7" class="">G.P. Popular ( GP )</a></div>
+                    
+                </li>
+            </ul>
+        </div>
+                
+        
+        <div class="titular_historico">Ficha personal</div>
+        <div class="texto_dip">
+            <ul>
+                
+                    <li>
+                        
+                            Nacido el 
+                        
+                        24 de febrero de 1945
+                        
+                            en&nbsp;Carrascalejo (Cáceres)
+                        
+                        .
+                    </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                    <li>
+                        
+                            Diputado de la 
+                        
+                        
+                        
+                            
+                            V                            
+                            
+                                
+                                    ,&nbsp;
+                                
+                                        
+                        
+                            
+                            VI                            
+                            
+                                
+                                    ,&nbsp;
+                                
+                                        
+                        
+                            
+                            VII                            
+                            
+                                
+                                    ,&nbsp;
+                                
+                                        
+                        
+                            
+                            VIII                            
+                            
+                                
+                                    y&nbsp;
+                                
+                                        
+                        
+                            
+                            IX                            
+                            
+                                
+                                    legislaturas.
+                                                                                   
+                                        
+                        
+                    </li>
+                
+                
+                <li>Casado. Dos hijos. Profesor de EGB. Director de Colegio Público. Alcalde de Carrascalejo desde 1979. Diputado Provincial de 1987 a 1996. Portavoz del Grupo  Popular en la Diputación de Cáceres de 1991 a 1996.</li>   
+<li></li>
+<br>
+
+
+
+
+
+
+                
+                
+                
+                
+                
+                <br><br>
+                
+                    <li><div class="dip_rojo">Fecha alta: 23/03/2000.</div></li>                    
+                                 
+                
+                <!-- Se comenta la condición siguiente por considerarla innecesaria. -->
+                <!-- if( (diputado.getFechaBaja() != null && !diputado.getFechaBaja().equals( "" ) ) && ( diputado.getDescricpcionBaja().equals( "Disolución de la Cámara" ) || diputado.getDescricpcionBaja().equals( "" ) ) ){ -->
+                
+                    <li><div class="dip_rojo">Causó baja el 20/01/2004.</div></li>
+               	
+               	 
+                    
+                    
+                    	<br><br>
+                    
+                 
+                </ul>
+            </div>
+    		
+				<div class="listado_1">
+					<ul>                
+						
+							
+							
+								
+							
+						
+							
+							
+								
+							
+						
+							
+							
+								
+							
+						
+							
+							
+								
+							
+						
+							
+							
+								
+							
+						
+							
+							
+								
+							
+						        
+						
+						     
+					</ul>
+				</div>
+			
+        
+            <p class="titular_historico">Histórico</p>
+                <div class="listado_1">
+                    <ul>                
+                        
+                            
+                            
+                                <li>
+                                    Vocal
+                                    
+                                        de la 
+                                    
+                                    Comisión de Educación, Cultura y Deporte       
+                                    desde el
+                                    11/05/2000
+                                    
+                                        al                                    
+                                        20/01/2004                                        
+                                    
+                                </li>
+                                                    
+                        
+                            
+                            
+                                <li>
+                                    Vocal
+                                    
+                                        de la 
+                                    
+                                    Comisión de Política Social y Empleo       
+                                    desde el
+                                    10/05/2000
+                                    
+                                        al                                    
+                                        20/01/2004                                        
+                                    
+                                </li>
+                                                    
+                        
+                            
+                            
+                                <li>
+                                    Vocal
+                                    
+                                        de la 
+                                    
+                                    Comisión de Cooperación Internacional para el Desarrollo       
+                                    desde el
+                                    10/05/2000
+                                    
+                                        al                                    
+                                        05/06/2000                                        
+                                    
+                                </li>
+                                                    
+                        
+                            
+                            
+                                <li>
+                                    Vicepresidente Primero
+                                    
+                                        de la 
+                                    
+                                    Comisión Mixta para el Estudio del Problema de las Drogas       
+                                    desde el
+                                    24/05/2000
+                                    
+                                        al                                    
+                                        20/01/2004                                        
+                                    
+                                </li>
+                                                    
+                        
+                            
+                            
+                                <li>
+                                    Ponente
+                                    
+                                        de la 
+                                    
+                                    Ponencia Proy. L.cesión tributos a Comunidad Aut. Extremadura (121/87)       
+                                    desde el
+                                    21/05/2002
+                                    
+                                        al                                    
+                                        21/05/2002                                        
+                                    
+                                </li>
+                                                    
+                        
+                            
+                            
+                                <li>
+                                    Ponente
+                                    
+                                        de la 
+                                    
+                                    Ponencia Proy.L. refor.normativa previsión riesgos laborales (121/167)       
+                                    desde el
+                                    24/09/2003
+                                    
+                                        al                                    
+                                        24/09/2003                                        
+                                    
+                                </li>
+                                                    
+                                        
+                        
+                             
+                    </ul>
+                </div>
+            
+           <div class="paginacion" id="enlaceHistory" style="display: block; ">
+                <a href="javascript:window.history.back();">Volver a la página anterior</a>
+            </div>
+                
+        </div>
+          
+        <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/lanzarCGI" id="lanzadorCGI">
+
+
+                <label for="origen"><input type="hidden" name="ORIGEN" value="/wc/fichaDiputado" id="origen"> </label>
+                <label for="direccion"><input type="hidden" name="DIRECCION" value="" id="direccion"> </label>
+                <label for="submenu"><input type="hidden" name="subMenu" value="" id="submenu"> </label>
+                <label for="opcionMenu"><input type="hidden" name="opcionMenu" value="" id="opcionMenu"> </label>
+        </form>    
+        
+        
+
+
+
+                 
+
+
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+	cargaLegSesion('7')
+</script>
+ 
+        
+        <script language="JavaScript" type="text/javascript">
+			mostrarHistory("mostrar");mostrarCapa( "capaLegislaturas", "false" );mostrarCapa( "capaAbecedario", "false" );
+		</script>
+
+
+</div></td></tr>
+</tbody></table>
+</div></td></tr>
 </tbody></table><table width="100%" id="rg8648" border="0" cellpadding="0" cellspacing="0" summary=""><tbody><tr><td></td></tr></tbody></table></td>
 </tr>
 </tbody></table>
@@ -439,5 +1119,5 @@ Search by form
 
 
 
-<!-- Page Metadata Generated On: 02-AUG-2016:14:49:12  Time Taken: 30 msecs -->
+<!-- Page Metadata Generated On: 09-AUG-2016:14:03:03  Time Taken: 30 msecs -->
 </body></html>
