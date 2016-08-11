@@ -1,0 +1,10 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/listadoFichas?idDiputado=329&idLegislatura=3
+response:
+  status:
+    message: OK
+    code: 200
+  date:
+  - Thu, 11 Aug 2016 21:45:13 GMT
