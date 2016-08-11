@@ -1,0 +1,10 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?next_page=/wc/fichaDiputado&idLegislatura=9&idDiputado=93
+response:
+  status:
+    message: OK
+    code: 200
+  date:
+  - Thu, 11 Aug 2016 21:15:38 GMT
