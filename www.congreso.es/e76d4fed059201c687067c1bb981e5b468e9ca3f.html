@@ -477,18 +477,1055 @@ Search by form
     
 
 
-           
-			<div class="TITULO_CONTENIDO">{ missing string: errorConsulta}</div>
-			<div class="espcacio_blanco"></div>
-			<div class="SUBTITULO_CONTENIDO"> 
-				{ missing string: detalleError}
+
+
+
+
+       
+
+
+
+       
+
+
+
+
+    
+
+
+   
+     
+   
+<script language="JavaScript" type="text/javascript">
+
+    function mostrarIniciativas(){
+    
+        document.getElementById( "capa_intervenciones").style.display = "none";
+        if(document.getElementById("capa_iniciativas") != null ){    
+            if(document.getElementById("capa_iniciativas").style.display == 'none'){
+                document.getElementById("capa_iniciativas").style.display = 'block';  
+            } else {
+                document.getElementById("capa_iniciativas").style.display = 'none';    
+            }
+        }
+    }
+    
+    function mostrarIntervenciones(){
+    
+        document.getElementById("capa_iniciativas").style.display = "none";
+        if(document.getElementById("capa_intervenciones")!= null ){    
+            if(document.getElementById("capa_intervenciones").style.display == 'none'){
+                document.getElementById("capa_intervenciones").style.display = 'block';  
+            } else {
+                document.getElementById("capa_intervenciones").style.display = 'none';    
+            }
+        }
+    }
+    
+    function noElegido( capaElegida ){            
+        
+        if( document.getElementById( capaElegida ) == document.getElementById( "spanIniciativas" ) ){            
+            document.getElementById( "spanIntervenciones" ).className = "noElegido";
+            document.getElementById( "spanIniciativas" ).className = "elegido";            
+        } else {                            
+            document.getElementById( "spanIniciativas" ).className = "noElegido";
+            document.getElementById( "spanIntervenciones" ).className = "elegido";
+        }
+    
+    }
+    
+    function activarEnlace(elemento){
+ 
+        var elem = document.getElementById(elemento);                  
+        elem.style.color='#FFFFFF';
+        elem.style.text='none';
+        elem.style.background='#9C1E3D';
+  }
+  
+   function desactivarEnlace( elemento ){
+        
+        var elem = document.getElementById(elemento);     
+        
+        elem.className = "";
+        elem.style.color='#000000';
+        elem.style.text='';
+        elem.style.background='#F3F3F3';
+       
+  }
+  
+  function cambiarEstilos( elemento, tipo ){
+  
+    if( tipo == 'iniciativas' ){
+        var meses = new Array(  "enlaceUltimas", "enlaceOrales", "enlaceEscritas", "enlaceInformes", "enlaceOrganos", "enlaceTodas" );
+    } else if ( tipo == 'iniciativasAnteriores' ){
+        var meses = new Array(  "enlaceOrales", "enlaceEscritas", "enlaceInformes", "enlaceOrganos", "enlaceTodas" );
+    } else if ( tipo == 'intervenciones' ){
+        var meses = new Array(  "enlaceUltimas", "enlaceTipo", "enlaceCrono" );
+    } else {
+        var meses = new Array(  "enlaceTipo", "enlaceCrono" );
+    }
+
+    for( i = 0; i < meses.length; i++ ){
+        
+        if( elemento == meses[i] ){                    
+            activarEnlace( meses[i] );
+        } else {                    
+            desactivarEnlace( meses[i] );
+        }                
+    }          
+  }
+  
+  
+  
+  function letrasBlancas( elemento ){
+  
+    var elemento = document.getElementbyId( elemento );
+    elemento.style.color = "#FFFFFF";
+    
+  }
+        
+</script>
+<div class="ancho100">
+  <div class="soporte_year">
+    <ul>
+      
+      <li>
+        
+        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado?idDiputado=340&amp;idLegislatura=9" class="" id="spanFicha">Ficha</a>
+        
+      </li>
+      |
+      
+      <li>
+        
+        <span id="spanTodasFichas" class="elegido">
+          Todas las legislaturas
+        </span>
+        
+      </li>
+      |
+      <li>
+        
+        <span id="spanIniciativas" onclick="javascript:mostrarIniciativas();noElegido( &quot;spanIniciativas&quot; );" class="noElegido">
+          Iniciativas parlamentarias
+        </span>
+        
+      </li>
+      |
+      <li>
+        
+        <span id="spanIntervenciones" onclick="javascript:mostrarIntervenciones();noElegido( &quot;spanIntervenciones&quot; );" class="noElegido">
+          Intervenciones parlamentarias
+        </span>
+        
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="espcacio_blanco"></div>
+
+<div id="capa_iniciativas" class="soporte_meses_dipu" style="display:none;">
+  <ul>    
+    
+
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=201&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceOrales">Preguntas orales</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=202&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceEscritas">Preguntas escritas</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=204&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceInformes">Solicitud de informes</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=203&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceComparecencias">Solicitud de comparecencias</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=205&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceOrganos">Solicitudes de creación de órganos</a></span>
+    </li>
+    |
+    
+    <li>
+      
+      <span class=""><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=1&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceTodas">Todas</a></span>
+    </li>    
+  </ul>
+</div>
+
+<div id="capa_intervenciones" class="soporte_meses_dipu" style="display:none;">
+  <ul>
+  
+  
+  
+  
+    
+     
+        
+                                
+                        
+            
+        <li>
+                                <span class="">
+                                        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=340&amp;tipoIntervenciones=tipo&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceTipo">Por tipo de iniciativa</a>
+                                </span>  
+        &nbsp;|&nbsp;
+        </li>
+        
+            
+        
+            
+        <li>
+                <span class="">
+                        <a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=340&amp;tipoIntervenciones=crono&amp;idLegislatura=9&amp;muestraLeg=false" class="" id="enlaceCrono">Por Orden cronológico</a>
+                </span>
+        </li> 
+  </ul>
+</div>
+
+	
+
+<noscript>
+
+&lt;div id="capa_iniciativas" class="soporte_meses_dipu" style="display:block;"&gt;
+  &lt;ul&gt;    
+    
+
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=201&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceOrales' &gt;Preguntas orales&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=202&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceEscritas' &gt;Preguntas escritas&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=204&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceInformes' &gt;Solicitud de informes&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=203&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceComparecencias' &gt;Solicitud de comparecencias&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class="" &gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=205&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceOrganos' &gt;Solicitudes de creación de órganos&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;
+    |
+    
+    &lt;li&gt;
+      
+      &lt;span class=""&gt;&lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm?tipoIniciativas=1&amp;idDiputado=340&amp;origen=diputados&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceTodas' &gt;Todas&lt;/a&gt;&lt;/span&gt;
+    &lt;/li&gt;    
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div id="capa_intervenciones" class="soporte_meses_dipu" style="display:block;"&gt;
+  &lt;ul&gt;
+ 
+ 
+     
+    
+        
+                                
+                        
+            
+        &lt;li&gt;
+                                &lt;span class="" &gt;
+                                        &lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=340&amp;tipoIntervenciones=tipo&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceTipo' &gt;Por tipo de iniciativa&lt;/a&gt;
+                                &lt;/span&gt;  
+        &amp;nbsp;|&amp;nbsp;
+        &lt;/li&gt;
+        
+            
+        
+            
+        &lt;li&gt;
+                &lt;span class="" &gt;
+                        &lt;a href='http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm?idDiputado=340&amp;tipoIntervenciones=crono&amp;idLegislatura=9&amp;muestraLeg=false' class='' id = 'enlaceCrono' &gt;Por Orden cronológico&lt;/a&gt;
+                &lt;/span&gt;
+        &lt;/li&gt; 
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+
+
+</noscript>
+	
+	<div class="TITULO_CONTENIDO_FICHAS">Montoro Romero, Cristóbal Ricardo</div>
+	
+	
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">XII Legislatura ( 2016-Actualidad ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Madrid ( G. P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni0">
+
+
+                                      
+                                          <label for="idLegislatura0"><input type="hidden" id="idLegislatura0" name="idLegislatura" value="12"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado0"><input type="hidden" id="idDiputado0" name="idDiputado" value="200"></label>
+                                           
+                                          <label for="tipoIniciativas0">
+                                              <select name="tipoIniciativas" id="tipoIniciativas0">
+                                                                                
+                                                            <option value="0">Últimas presentadas</option>
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar0"><input id="buscar0" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt0">
+
+
+                                          
+                                            <label for="idLegislatura2_0"><input type="hidden" id="idLegislatura2_0" name="idLegislatura" value="12"></label>
+                                    
+                                           <label for="idDiputado2_0"><input type="hidden" id="idDiputado2_0" name="idDiputado" value="200"></label>
+                                               
+                                            <label for="tipoIntervenciones_0">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_0">
+                                                        
+                                                                <option value="ultimas">Últimas realizadas</option>
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_0"><input id="buscar2_0" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=12&amp;idDiputado=200" class="">Ficha</a>
+                                    </div>
+				</div>
 			</div>
-			<div class="SUBTITULO_CONTENIDO"> 
-				<a href="javascript:history.go(-1);">Volver</a>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">XI Legislatura ( 2016-2016 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Madrid ( G.P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni1">
+
+
+                                      
+                                          <label for="idLegislatura1"><input type="hidden" id="idLegislatura1" name="idLegislatura" value="11"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado1"><input type="hidden" id="idDiputado1" name="idDiputado" value="243"></label>
+                                           
+                                          <label for="tipoIniciativas1">
+                                              <select name="tipoIniciativas" id="tipoIniciativas1">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar1"><input id="buscar1" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt1">
+
+
+                                          
+                                            <label for="idLegislatura2_1"><input type="hidden" id="idLegislatura2_1" name="idLegislatura" value="11"></label>
+                                    
+                                           <label for="idDiputado2_1"><input type="hidden" id="idDiputado2_1" name="idDiputado" value="243"></label>
+                                               
+                                            <label for="tipoIntervenciones_1">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_1">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_1"><input id="buscar2_1" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=11&amp;idDiputado=243" class="">Ficha</a>
+                                    </div>
+				</div>
 			</div>
-			<div class="SUBTITULO_CONTENIDO"> 
-				{ missing string: error} null
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">X Legislatura ( 2011-2016 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Sevilla ( G.P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni2">
+
+
+                                      
+                                          <label for="idLegislatura2"><input type="hidden" id="idLegislatura2" name="idLegislatura" value="10"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado2"><input type="hidden" id="idDiputado2" name="idDiputado" value="27"></label>
+                                           
+                                          <label for="tipoIniciativas2">
+                                              <select name="tipoIniciativas" id="tipoIniciativas2">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar2"><input id="buscar2" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt2">
+
+
+                                          
+                                            <label for="idLegislatura2_2"><input type="hidden" id="idLegislatura2_2" name="idLegislatura" value="10"></label>
+                                    
+                                           <label for="idDiputado2_2"><input type="hidden" id="idDiputado2_2" name="idDiputado" value="27"></label>
+                                               
+                                            <label for="tipoIntervenciones_2">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_2">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_2"><input id="buscar2_2" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=10&amp;idDiputado=27" class="">Ficha</a>
+                                    </div>
+				</div>
 			</div>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">IX Legislatura ( 2008-2011 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Madrid ( G.P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni3">
+
+
+                                      
+                                          <label for="idLegislatura3"><input type="hidden" id="idLegislatura3" name="idLegislatura" value="9"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado3"><input type="hidden" id="idDiputado3" name="idDiputado" value="340"></label>
+                                           
+                                          <label for="tipoIniciativas3">
+                                              <select name="tipoIniciativas" id="tipoIniciativas3">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar3"><input id="buscar3" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt3">
+
+
+                                          
+                                            <label for="idLegislatura2_3"><input type="hidden" id="idLegislatura2_3" name="idLegislatura" value="9"></label>
+                                    
+                                           <label for="idDiputado2_3"><input type="hidden" id="idDiputado2_3" name="idDiputado" value="340"></label>
+                                               
+                                            <label for="tipoIntervenciones_3">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_3">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_3"><input id="buscar2_3" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=9&amp;idDiputado=340" class="">Ficha</a>
+                                    </div>
+				</div>
+			</div>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">VIII Legislatura ( 2004-2008 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Jaén ( G.P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni4">
+
+
+                                      
+                                          <label for="idLegislatura4"><input type="hidden" id="idLegislatura4" name="idLegislatura" value="8"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado4"><input type="hidden" id="idDiputado4" name="idDiputado" value="190"></label>
+                                           
+                                          <label for="tipoIniciativas4">
+                                              <select name="tipoIniciativas" id="tipoIniciativas4">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar4"><input id="buscar4" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt4">
+
+
+                                          
+                                            <label for="idLegislatura2_4"><input type="hidden" id="idLegislatura2_4" name="idLegislatura" value="8"></label>
+                                    
+                                           <label for="idDiputado2_4"><input type="hidden" id="idDiputado2_4" name="idDiputado" value="190"></label>
+                                               
+                                            <label for="tipoIntervenciones_4">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_4">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_4"><input id="buscar2_4" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=8&amp;idDiputado=190" class="">Ficha</a>
+                                    </div>
+				</div>
+			</div>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">VII Legislatura ( 2000-2004 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Jaén ( G.P. Popular )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni5">
+
+
+                                      
+                                          <label for="idLegislatura5"><input type="hidden" id="idLegislatura5" name="idLegislatura" value="7"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado5"><input type="hidden" id="idDiputado5" name="idDiputado" value="258"></label>
+                                           
+                                          <label for="tipoIniciativas5">
+                                              <select name="tipoIniciativas" id="tipoIniciativas5">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar5"><input id="buscar5" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt5">
+
+
+                                          
+                                            <label for="idLegislatura2_5"><input type="hidden" id="idLegislatura2_5" name="idLegislatura" value="7"></label>
+                                    
+                                           <label for="idDiputado2_5"><input type="hidden" id="idDiputado2_5" name="idDiputado" value="258"></label>
+                                               
+                                            <label for="tipoIntervenciones_5">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_5">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_5"><input id="buscar2_5" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=7&amp;idDiputado=258" class="">Ficha</a>
+                                    </div>
+				</div>
+			</div>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">VI Legislatura ( 1996-2000 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Madrid ( Grupo Parlamentario Popular en el Congreso )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni6">
+
+
+                                      
+                                          <label for="idLegislatura6"><input type="hidden" id="idLegislatura6" name="idLegislatura" value="6"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado6"><input type="hidden" id="idDiputado6" name="idDiputado" value="329"></label>
+                                           
+                                          <label for="tipoIniciativas6">
+                                              <select name="tipoIniciativas" id="tipoIniciativas6">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar6"><input id="buscar6" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt6">
+
+
+                                          
+                                            <label for="idLegislatura2_6"><input type="hidden" id="idLegislatura2_6" name="idLegislatura" value="6"></label>
+                                    
+                                           <label for="idDiputado2_6"><input type="hidden" id="idDiputado2_6" name="idDiputado" value="329"></label>
+                                               
+                                            <label for="tipoIntervenciones_6">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_6">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_6"><input id="buscar2_6" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=6&amp;idDiputado=329" class="">Ficha</a>
+                                    </div>
+				</div>
+			</div>
+			
+		
+			
+			
+			 
+			
+                        
+			
+			
+			
+			
+			
+			<div class="all_leg">
+				<div class="principal">V Legislatura ( 1993-1996 ) </div>
+				<div class="SUBTITULO_INTERMEDIO">
+					
+						Diputado por 
+					
+					
+						
+						
+					
+
+					Madrid ( Grupo Parlamentario Popular en el Congreso )
+				</div>
+				<div class="contenedor">
+                                   <div class="modulos_leg">
+                                      Iniciativas
+                                      
+                                      
+                                      
+                                      <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIniciativasForm" id="listadoFichasIni7">
+
+
+                                      
+                                          <label for="idLegislatura7"><input type="hidden" id="idLegislatura7" name="idLegislatura" value="5"></label>
+                                                                                                                                                                            
+                                          <label for="idDiputado7"><input type="hidden" id="idDiputado7" name="idDiputado" value="224"></label>
+                                           
+                                          <label for="tipoIniciativas7">
+                                              <select name="tipoIniciativas" id="tipoIniciativas7">
+                                                    
+                                                            <option value="201">Preguntas orales</option>                            
+                                                            <option value="202">Preguntas escritas</option>                            
+                                                            <option value="204">Solicitud de informes</option>                            
+                                                            <option value="203">Solicitud de comparecencias</option>                            
+                                                            <option value="205">Solicitudes de creación de órganos</option>                            
+                                                            <option value="1">Todas</option>                               
+                                                    </select>                 
+                                        </label>         
+                                                
+                                        <label for="buscar7"><input id="buscar7" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+
+                                    </form>                        
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="modulos_leg">
+                                          Intervenciones  
+                                          
+                                          
+                                          
+                                          <form method="post" action="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/buscarIntervencionesForm" id="listadoFichasInt7">
+
+
+                                          
+                                            <label for="idLegislatura2_7"><input type="hidden" id="idLegislatura2_7" name="idLegislatura" value="5"></label>
+                                    
+                                           <label for="idDiputado2_7"><input type="hidden" id="idDiputado2_7" name="idDiputado" value="224"></label>
+                                               
+                                            <label for="tipoIntervenciones_7">
+                                                <select name="tipoIntervenciones" id="tipoIntervenciones_7">
+                                                        
+                                                                <option value="tipo">Por tipo de iniciativa</option>                                    
+                                                                <option value="crono">Por Orden cronológico</option>
+                                                </select> 
+                                            </label>
+                                            
+                                            <label for="buscar2_7"><input id="buscar2_7" type="IMAGE" alt="Buscar" class="btn_mas_combo" value="Buscar" src="/wc/htdocs/web/img/btn_mas_form.gif"></label>
+                                       
+                                        </form>                    
+                                            
+                                    </div>
+		
+                                    <div class="btn_ficha">
+                                            <img src="/wc/htdocs/web/img/ico_ficha.gif" alt="Ficha"><a href="http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado&amp;idLegislatura=5&amp;idDiputado=224" class="">Ficha</a>
+                                    </div>
+				</div>
+			</div>
+			
+		
+	<script language="JavaScript" type="text/javascript">
+		mostrarCapa( "capaLegislaturas", "false" );
+	</script>
+	
+	
+	<!-- FUNCION PIE -->
+	
+
+
+
+                 
+
+
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+	cargaLegSesion('9')
+</script>
+ 
+	<!-- FIN  PIE   -->
+
 
 
 </div></td></tr>
@@ -548,5 +1585,5 @@ Search by form
 
 
 
-<!-- Page Metadata Generated On: 09-AUG-2016:14:03:03  Time Taken: 30 msecs -->
+<!-- Page Metadata Generated On: 12-AUG-2016:07:06:35  Time Taken: 50 msecs -->
 </body></html>
