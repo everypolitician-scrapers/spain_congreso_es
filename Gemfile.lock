@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/everypolitician/scraped_page_archive
+  remote: https://github.com/everypolitician/scraped_page_archive.git
   revision: 9d8a6347d122d42a983ba28ff84d24de6bdca8a0
   branch: master
   specs:
@@ -88,5 +88,8 @@ DEPENDENCIES
   scraped_page_archive!
   scraperwiki!
 
+RUBY VERSION
+   ruby 2.0.0p648
+
 BUNDLED WITH
-   1.13.2
+   1.13.5
