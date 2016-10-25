@@ -1,0 +1,10 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas?_piref73_1335404_73_1335403_1335403.next_page=/wc/busquedaAlfabeticaTodasLeg&paginaActual=5&criterio=
+response:
+  status:
+    message: OK
+    code: 200
+  date:
+  - Tue, 25 Oct 2016 16:40:37 GMT
