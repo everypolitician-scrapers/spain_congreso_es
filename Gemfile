@@ -3,14 +3,15 @@
 # Find out more: https://morph.io/documentation/ruby
 
 source "https://rubygems.org"
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
 ruby "2.0.0"
 
-gem "scraperwiki", git: "https://github.com/openaustralia/scraperwiki-ruby.git", branch: "morph_defaults"
+gem "scraperwiki", github: "openaustralia/scraperwiki-ruby", branch: "morph_defaults"
 gem "nokogiri"
 gem "open-uri-cached"
 gem "pry"
 gem "colorize"
 gem "capybara"
 gem "poltergeist"
-gem 'scraped_page_archive', git: "https://github.com/everypolitician/scraped_page_archive", branch: "master"
+gem 'scraped_page_archive', github: "everypolitician/scraped_page_archive", branch: "master"
