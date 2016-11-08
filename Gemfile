@@ -15,3 +15,4 @@ gem "colorize"
 gem "capybara"
 gem "poltergeist"
 gem 'scraped_page_archive', github: "everypolitician/scraped_page_archive", branch: "master"
+gem 'scraped_page', github: 'everypolitician/scraped_page', branch: 'master'
