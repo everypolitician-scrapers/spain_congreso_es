@@ -1,4 +1,5 @@
 require 'scraped_page'
+require_relative 'date_of_birth'
 
 class String
   def tidy
@@ -7,31 +8,6 @@ class String
 end
 
 class MemberPage < ScrapedPage
-  class DateOfBirth
-    DATE_REGEX = /(?<day>\d+) de (?<month>[^[:space:]]*) de (?<year>\d+)/
-
-    def initialize(date_string)
-      @date_string = date_string
-    end
-
-    def to_s
-      return if match.nil?
-      "%d-%02d-%02d" % [ match[:year], month(match[:month]), match[:day] ]
-    end
-
-    private
-
-    attr_reader :date_string
-
-    def match
-      @match ||= date_string.match(DATE_REGEX)
-    end
-
-    def month(str)
-      ['','enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'].find_index(str.downcase) or raise "Unknown month #{str}".magenta
-    end
-  end
-
   # Remove session information from url
   def url
     super.to_s.match(/(.*)_piref[\d_]+\.(next_page.*)/).captures.join('')
