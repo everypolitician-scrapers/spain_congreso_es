@@ -77,11 +77,11 @@ class MemberPage < SpanishCongressPage
   end
 
   field :phone do
-    noko.css('.texto_dip').map(&:text).join('').match(/Teléfono: (.*)$/).to_a.last.to_s.tidy
+    noko.css('.texto_dip').text.match(/Teléfono: (.*)$/).to_a.last.to_s.tidy
   end
 
   field :fax do
-    noko.css('.texto_dip').map(&:text).join('').match(/Fax: (.*)$/).to_a.last.to_s.tidy
+    noko.css('.texto_dip').text.match(/Fax: (.*)$/).to_a.last.to_s.tidy
   end
 
   field :constituency do
