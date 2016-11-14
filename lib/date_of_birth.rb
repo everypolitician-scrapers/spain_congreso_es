@@ -7,8 +7,8 @@ class DateOfBirth
   end
 
   def to_s
-    return if match.nil?
-    "%d-%02d-%02d" % [ match[:year], month(match[:month]), match[:day] ]
+    return '' if match.nil?
+    '%d-%02d-%02d' % [match[:year], month(match[:month]), match[:day]]
   end
 
   private
