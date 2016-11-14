@@ -53,11 +53,11 @@ class MemberPage < ScrapedPage
   end
 
   field :faction do
-    faction_information[:faction].tidy
+    faction_information[:faction].to_s.tidy
   end
 
   field :faction_id do
-    faction_information[:faction_id].tidy
+    faction_information[:faction_id].to_s.tidy
   end
 
   field :start_date do
@@ -119,6 +119,6 @@ class MemberPage < ScrapedPage
   end
 
   def faction_information
-    @faction_information ||= group.match(/(?<faction>.*?) \((?<faction_id>.*?)\)/)
+    @faction_information ||= group.match(/(?<faction>.*?) \((?<faction_id>.*?)\)/) || {}
   end
 end
