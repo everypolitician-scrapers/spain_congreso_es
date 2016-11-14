@@ -6,6 +6,10 @@ class MembersListPage < SpanishCongressPage
   end
 
   def next_page_url
-    @next_page_url ||= noko.css('//div[@class = "paginacion"]//a[contains("Página Siguiente")]').first[:href]
+    next_page_link && next_page_link[:href]
+  end
+
+  def next_page_link
+    @next_page_url ||= noko.css('//div[@class = "paginacion"]//a[contains("Página Siguiente")]').first
   end
 end
