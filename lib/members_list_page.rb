@@ -1,6 +1,6 @@
-require 'scraped_page'
+require_relative 'spanish_congress_page'
 
-class MembersListPage < ScrapedPage
+class MembersListPage < SpanishCongressPage
   def member_urls
     @member_urls ||= noko.css('div#RESULTADOS_DIPUTADOS div.listado_1 ul li a').map { |p| p[:href] }
   end
