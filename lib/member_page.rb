@@ -16,11 +16,11 @@ class MemberPage < SpanishCongressPage
   end
 
   field :family_names do
-    name.split(/,/).first.tidy
+    name.split(/,/).first.to_s.tidy
   end
 
   field :given_names do
-    name.split(/,/).last.tidy
+    name.split(/,/).last.to_s.tidy
   end
 
   field :gender do
