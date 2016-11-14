@@ -1,11 +1,6 @@
 require_relative 'spanish_congress_page'
 require_relative 'date_of_birth'
-
-class String
-  def tidy
-    self.gsub(/[[:space:]]+/, ' ').strip
-  end
-end
+require_relative 'core_ext'
 
 class MemberPage < SpanishCongressPage
   field :iddiputado do
