@@ -1,4 +1,4 @@
-require 'scraped_page'
+require_relative 'spanish_congress_page'
 require_relative 'date_of_birth'
 
 class String
@@ -7,15 +7,7 @@ class String
   end
 end
 
-class MemberPage < ScrapedPage
-  # Remove session information from url
-  def url
-    uri = URI.parse(super.to_s)
-    return uri.to_s unless uri.query
-    uri.query = uri.query.gsub(/_piref[\d_]+\./, '')
-    uri.to_s
-  end
-
+class MemberPage < SpanishCongressPage
   field :iddiputado do
     query['idDiputado']
   end
