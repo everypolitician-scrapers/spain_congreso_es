@@ -62,6 +62,10 @@ class MemberPage < ScrapedPage
     return 'male' if seat.include? 'Diputado'
   end
 
+  field :party do
+    noko.at_css('#datos_diputado .nombre_grupo').text.tidy
+  end
+
   field :source do
     url.to_s
   end
