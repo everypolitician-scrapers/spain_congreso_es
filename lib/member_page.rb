@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'spanish_congress_page'
 require_relative 'date_of_birth'
 require_relative 'core_ext'
@@ -52,14 +53,14 @@ class MemberPage < SpanishCongressPage
 
   field :start_date do
     start_date = noko.xpath('.//div[@class="dip_rojo"][contains(.,"Fecha alta")]')
-      .text.match(/(\d+)\/(\d+)\/(\d+)\./)
+                     .text.match(/(\d+)\/(\d+)\/(\d+)\./)
     return if start_date.nil?
     start_date.captures.reverse.join('-')
   end
 
   field :end_date do
     end_date = noko.xpath('.//div[@class="dip_rojo"][contains(.,"Causó baja")]')
-      .text.match(/(\d+)\/(\d+)\/(\d+)\./)
+                   .text.match(/(\d+)\/(\d+)\/(\d+)\./)
     return if end_date.nil?
     end_date.captures.reverse.join('-')
   end
