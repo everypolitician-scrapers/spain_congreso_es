@@ -10,7 +10,10 @@ end
 class MemberPage < ScrapedPage
   # Remove session information from url
   def url
-    super.to_s.match(/(.*)_piref[\d_]+\.(next_page.*)/).captures.join('')
+    uri = URI.parse(super.to_s)
+    return uri.to_s unless uri.query
+    uri.query = uri.query.gsub(/_piref[\d_]+\./, '')
+    uri.to_s
   end
 
   field :iddiputado do
