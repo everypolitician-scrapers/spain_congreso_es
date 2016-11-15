@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/everypolitician/scraped_page.git
-  revision: 6eb806c01e8b9f3e333575a639e40a68be60ae48
-  branch: master
+  revision: ae7b8e808b326e7c5939120d26dad418e77ae5f1
+  branch: scraped_page-only-deals-with-response
   specs:
     scraped_page (0.1.0)
       field_serializer
