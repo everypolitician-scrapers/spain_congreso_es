@@ -2,7 +2,7 @@
 require 'scraped_page'
 require 'uri'
 
-class SpanishCongressPage < ScrapedPage
+class SpanishCongressRequest < ScrapedPage::Request
   # Remove session information from url
   def url
     uri = URI.parse(super.to_s)
