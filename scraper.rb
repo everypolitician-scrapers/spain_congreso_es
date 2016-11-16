@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 require 'scraperwiki'
 require 'uri'
-require_relative 'lib/members_list_page'
-require_relative 'lib/member_page'
-require_relative 'lib/spanish_congress_request'
 require 'pry'
+require 'require_all'
+require_rel 'lib'
 
 url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas'
 
