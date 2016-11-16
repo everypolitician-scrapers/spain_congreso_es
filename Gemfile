@@ -10,3 +10,4 @@ ruby "2.3.1"
 gem "scraperwiki", github: "openaustralia/scraperwiki-ruby", branch: "morph_defaults"
 gem "pry"
 gem 'scraped_page', github: 'everypolitician/scraped_page', branch: 'add-scraped_page-request-class'
+gem 'require_all'

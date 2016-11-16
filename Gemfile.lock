@@ -62,6 +62,7 @@ PLATFORMS
 
 DEPENDENCIES
   pry
+  require_all
   scraped_page!
   scraperwiki!
 
