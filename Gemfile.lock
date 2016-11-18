@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/everypolitician/scraped_page.git
-  revision: 5f15a4f9d35856b552c0d32c8b258f4a099bc8e3
+  revision: 0e83d17525d5cf982b6aebcac3839f2a27e95195
   branch: add-scraped_page-request-class
   specs:
-    scraped_page (0.1.0)
+    scraped (0.1.0)
       field_serializer
       nokogiri
       require_all
@@ -63,7 +63,7 @@ PLATFORMS
 DEPENDENCIES
   pry
   require_all
-  scraped_page!
+  scraped!
   scraperwiki!
 
 RUBY VERSION
