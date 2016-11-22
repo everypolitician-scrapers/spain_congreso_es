@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'scraped_page'
+require 'scraped'
 
-class MembersListPage < ScrapedPage
+class MembersListPage < Scraped
   def member_urls
     @member_urls ||= noko.css('div#RESULTADOS_DIPUTADOS div.listado_1 ul li a').map { |p| p[:href] }
   end

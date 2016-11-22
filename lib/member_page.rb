@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-require 'scraped_page'
+require 'scraped'
 require_relative 'date_of_birth'
 require_relative 'core_ext'
 
-class MemberPage < ScrapedPage
+class MemberPage < Scraped
   field :iddiputado do
     query['idDiputado']
   end
