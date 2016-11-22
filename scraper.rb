@@ -8,9 +8,9 @@ require_rel 'lib'
 url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas'
 
 loop do
-  page = MembersListPage.new(response: ScrapedPage::Request.new(url: url).response([AbsoluteLinks.new, RemoveSessionInformationFromLinks.new]))
+  page = MembersListPage.new(response: Scraped::Request.new(url: url).response([AbsoluteLinks, RemoveSessionInformationFromLinks]))
   page.member_urls.each do |member_url|
-    member = MemberPage.new(response: ScrapedPage::Request.new(url: member_url).response([AbsoluteLinks.new, RemoveSessionInformationFromLinks.new]))
+    member = MemberPage.new(response: Scraped::Request.new(url: member_url).response([AbsoluteLinks, RemoveSessionInformationFromLinks]))
     ScraperWiki.save_sqlite([:name, :term], member.to_h)
   end
   url = page.next_page_url
