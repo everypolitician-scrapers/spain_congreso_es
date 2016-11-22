@@ -1,4 +1,4 @@
-class RemoveSessionInformationFromLinks < ScrapedPage::Processor
+class RemoveSessionInformationFromLinks < Scraped::Response::Decorator
   def body
     doc = Nokogiri::HTML(super)
     doc.css('a').each do |link|

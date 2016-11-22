@@ -1,4 +1,4 @@
-class AbsoluteLinks < ScrapedPage::Processor
+class AbsoluteLinks < Scraped::Response::Decorator
   def body
     doc = Nokogiri::HTML(super)
     doc.css('a').each do |link|
