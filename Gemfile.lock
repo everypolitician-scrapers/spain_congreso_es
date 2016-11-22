@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/everypolitician/scraped.git
-  revision: 74042a8bb77d6f5b51593510ed684d0e6c9e6559
+  revision: f2c4fcb6ee7457dd6971ae90947cdc5dc6aec1d0
   branch: add-scraped_page-request-class
   specs:
     scraped (0.1.0)
