@@ -1,6 +1,6 @@
 class RemoveSessionInformationFromLinks < Scraped::Response::Decorator
   def body
-    doc = Nokogiri::HTML(response.body)
+    doc = Nokogiri::HTML(super)
     doc.css('a').each do |link|
       link[:href] = url_without_session_info(link[:href])
     end
