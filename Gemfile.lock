@@ -1,11 +1,12 @@
 GIT
-  remote: https://github.com/everypolitician/scraped_page.git
-  revision: 6eb806c01e8b9f3e333575a639e40a68be60ae48
+  remote: https://github.com/everypolitician/scraped.git
+  revision: 26ee2a938ce0ed7cd91afd373dba987dfd4139fb
   branch: master
   specs:
-    scraped_page (0.1.0)
+    scraped (0.1.0)
       field_serializer
       nokogiri
+      require_all
       scraped_page_archive (>= 0.5)
 
 GIT
@@ -27,7 +28,7 @@ GEM
       safe_yaml (~> 1.0.0)
     field_serializer (0.2.0)
     git (1.3.0)
-    hashdiff (0.3.0)
+    hashdiff (0.3.1)
     httpclient (2.7.1)
     method_source (0.8.2)
     mini_portile2 (2.1.0)
@@ -38,6 +39,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.4)
+    require_all (1.3.3)
     safe_yaml (1.0.4)
     scraped_page_archive (0.5.0)
       git (~> 1.3.0)
@@ -60,7 +62,8 @@ PLATFORMS
 
 DEPENDENCIES
   pry
-  scraped_page!
+  require_all
+  scraped!
   scraperwiki!
 
 RUBY VERSION
