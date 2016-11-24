@@ -3,7 +3,7 @@ require 'scraped'
 require_relative 'date_of_birth'
 require_relative 'core_ext'
 
-class MemberPage < Scraped
+class MemberPage < Scraped::HTML
   field :iddiputado do
     query['idDiputado']
   end
