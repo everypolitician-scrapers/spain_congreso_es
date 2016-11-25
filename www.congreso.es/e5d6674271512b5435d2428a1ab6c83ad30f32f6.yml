@@ -1,0 +1,23 @@
+---
+request:
+  method: get
+  uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?next_page=/wc/fichaDiputado&idDiputado=72&idLegislatura=0
+response:
+  status:
+    code: 200
+  headers:
+    surrogate-key: search-key=("si73" "pa73,1333154" "ht1117773020" "pp73,1333154"
+      "pp73,1333049" "pp73,1330682" "pp73,1")
+    etag: '"us, us"'
+    content-type: text/html; charset=utf-8
+    content-length: '56381'
+    server: Oracle Application Server/10.1.2.3.0 Microsoft-IIS/5.0 OracleAS-Web-Cache-10g/10.1.2.3.0
+      (TM;max-age=2592000+0;age=1;ecid=291533625162,1)
+    last-modified: Fri, 25 Nov 2016 12:37:29 GMT
+    content-location: "/servlet/page/Congreso/Congreso/Diputados/BusqForm"
+    cache-control: max-age=0
+    date: Fri, 25 Nov 2016 12:37:30 GMT
+    connection: keep-alive
+    set-cookie: ORA_WX_SESSION="545FAD85FC5EA25A1E3FAE66E3BBBF6CCF3E322A-2#4"; path=/,
+      portal=9.0.3+en-us+us+AMERICA+422042F2A32F0052E053AC1A640B0052+A75454588108A46ADC8E3EAC99CCA0741FE3C606C45C5914C1760C8989E2EF6C360D2B5373F62B37CC6E0BB3A7D5B247DE594BD7872D18E358087CE42D492B9EA81D27CF162EBB44AB82737BB25C81DA195C3F35CE688120;
+      path=/
