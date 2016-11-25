@@ -4,16 +4,7 @@ request:
   uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas
 response:
   status:
+    message: OK
     code: 200
-  headers:
-    content-type: text/html; charset=utf-8
-    content-length: '58015'
-    server: Oracle Application Server/10.1.2.3.0 Microsoft-IIS/5.0 OracleAS-Web-Cache-10g/10.1.2.3.0
-      (TH;max-age=2592000+0;age=874;ecid=72057932815916369,1)
-    content-location: "/servlet/page/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas"
-    cache-control: max-age=0
-    date: Fri, 25 Nov 2016 12:32:56 GMT
-    connection: keep-alive
-    set-cookie: ORA_WX_SESSION="545FAD85FC5EA25A1E3FAE66E3BBBF6CCF3E322A-3#4"; path=/,
-      portal=9.0.3+en-us+us+AMERICA+42203489B2C50196E053AC1A640C0196+D5B321AB63D6C42B222FD4BCBB4666A5485F2C37384CE3B44544350CBA34B1541136F4AC4802AC8418C21AC1D457BAED674324A7303D64F4778AFB8C69549A96D7A6D69FF2B99E03B227880756ABF624C9B9E9BF573B6892;
-      path=/
+  date:
+  - Fri, 25 Nov 2016 15:07:31 GMT
