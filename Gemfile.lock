@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/everypolitician/scraped.git
-  revision: 5b958eddc1d6ddc6a807e4ab8ceba28b143db944
-  branch: master
+  revision: a472ba1708c2052003eae075113ce0732976b81f
+  branch: 65-handle-badly-encoded-urls-refactor
   specs:
-    scraped (0.3.0)
+    scraped (0.3.1)
       field_serializer (>= 0.3.0)
       nokogiri
       require_all
