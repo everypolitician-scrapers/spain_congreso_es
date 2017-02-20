@@ -105,7 +105,7 @@ class MemberPage < Scraped::HTML
   end
 
   def seat
-    noko.at_css('div#curriculum div.texto_dip ul li div.dip_rojo:first').text.tidy rescue binding.pry
+    noko.at_css('div#curriculum div.texto_dip ul li div.dip_rojo:first').text.tidy
   end
 
   def group
