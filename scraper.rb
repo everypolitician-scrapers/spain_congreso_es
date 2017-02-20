@@ -4,6 +4,9 @@ require 'uri'
 require_relative 'lib/members_list_page'
 require_relative 'lib/member_page'
 
+require 'open-uri/cached'
+OpenURI::Cache.cache_path = '.cache'
+
 url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas'
 
 loop do
