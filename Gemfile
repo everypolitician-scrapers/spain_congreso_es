@@ -16,3 +16,4 @@ gem "capybara"
 gem "poltergeist"
 gem 'scraped_page_archive', github: "everypolitician/scraped_page_archive", branch: "master"
 gem 'scraped', github: 'everypolitician/scraped', branch: '65-handle-badly-encoded-urls-refactor'
+gem 'field_serializer'

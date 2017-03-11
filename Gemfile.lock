@@ -93,6 +93,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   colorize
+  field_serializer
   nokogiri
   open-uri-cached
   poltergeist
