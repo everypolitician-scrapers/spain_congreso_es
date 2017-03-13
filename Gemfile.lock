@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/everypolitician/scraped.git
+  revision: a472ba1708c2052003eae075113ce0732976b81f
+  branch: 65-handle-badly-encoded-urls-refactor
+  specs:
+    scraped (0.3.1)
+      field_serializer (>= 0.3.0)
+      nokogiri
+      require_all
+
+GIT
   remote: https://github.com/everypolitician/scraped_page_archive.git
   revision: 9d8a6347d122d42a983ba28ff84d24de6bdca8a0
   branch: master
@@ -32,6 +42,7 @@ GEM
     colorize (0.7.7)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
+    field_serializer (0.3.0)
     git (1.3.0)
     hashdiff (0.3.0)
     httpclient (2.7.1)
@@ -56,6 +67,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    require_all (1.4.0)
     safe_yaml (1.0.4)
     slop (3.6.0)
     sqlite3 (1.3.11)
@@ -81,10 +93,12 @@ PLATFORMS
 DEPENDENCIES
   capybara
   colorize
+  field_serializer
   nokogiri
   open-uri-cached
   poltergeist
   pry
+  scraped!
   scraped_page_archive!
   scraperwiki!
 
@@ -92,4 +106,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.5
+   1.13.7
