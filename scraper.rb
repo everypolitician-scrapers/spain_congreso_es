@@ -12,15 +12,35 @@ def scrape(h)
   klass.new(response: Scraped::Request.new(url: url).response)
 end
 
-def scrape_members(url)
+def unmerged_memberships(url)
   page = scrape(url => MembersListPage)
   page.member_urls.map do |member_url|
+    puts "Scraping unmerged: #{member_url}"
     data = scrape(member_url => MemberPage).to_h
-    puts data.reject { |k, v| v.to_s.empty? }.sort_by { |k, v| k }.to_h
-    ScraperWiki.save_sqlite([:name, :term], data)
+    puts data[:memberships_list].memberships.map(&:to_h)
+    data
   end
-  scrape_members(page.next_page_url) unless page.next_page_url.nil?
+  unmerged_memberships(page.next_page_url) unless page.next_page_url.nil?
+end
+
+def person_data(data)
+  unwanted_keys = %i(party faction faction_id start_date end_date constituency term memberships_list)
+  data.reject do |k, _v|
+    unwanted_keys.include? k
+  end
+end
+
+member_list_url = 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas'
+merged_memberships = unmerged_memberships(member_list_url).flat_map do |mem|
+  other_memberships = mem[:memberships_list].memberships.reject{ |other_m| other_m.term == mem[:term] }
+  all_memberships = other_memberships.map do |other_m|
+    other_m.to_h.merge(person_data(mem))
+  end
+  mem.delete(:memberships_list)
+  all_memberships.push mem
 end
 
 ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
-scrape_members('http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas')
+merged_memberships.each do |mem|
+  ScraperWiki.save_sqlite([:name, :term], mem)
+end
