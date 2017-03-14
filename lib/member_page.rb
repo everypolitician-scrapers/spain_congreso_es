@@ -2,6 +2,8 @@
 require 'scraped'
 require_relative 'remove_session_from_url_decorator'
 require_relative 'parsed_date_string'
+require_relative 'strategies/live_request_with_cookie'
+require_relative 'memberships_list'
 
 class MemberPage < Scraped::HTML
   decorator Scraped::Response::Decorator::AbsoluteUrls
@@ -98,6 +100,11 @@ class MemberPage < Scraped::HTML
     foto[:src]
   end
 
+  field :memberships_list do
+    req = Scraped::Request.new(url: memberships_url, strategies: [{ strategy: LiveRequestWithCookie, cookie: cookie }])
+    MembershipsList.new(response: req.response)
+  end
+
   private
 
   def query_string
@@ -114,5 +121,23 @@ class MemberPage < Scraped::HTML
 
   def faction_information
     group.match(/(?<faction>.*?) \((?<faction_id>.*?)\)/) || {}
+  end
+
+  # Helpers used in generating MembershipsList request
+
+  def ora_wx_session_cookie
+    response.headers['set-cookie'].split('SESSION="')[1].split('";').first
+  end
+    
+  def portal_cookie
+    response.headers['set-cookie'].split('portal=')[1].split('; ').first
+  end
+
+  def cookie
+    "ORA_WX_SESSION='#{ora_wx_session_cookie}';portal=#{portal_cookie}"
+  end
+
+  def memberships_url
+    url.gsub('fichaDiputado&', 'listadoFichas?')
   end
 end
