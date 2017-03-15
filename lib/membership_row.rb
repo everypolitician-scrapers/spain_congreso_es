@@ -1,7 +1,6 @@
 require 'scraped'
 
 class MembershipRow < Scraped::HTML
-
   TERM_IDS = ['Legislatura','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
 
   field :term do
@@ -10,11 +9,16 @@ class MembershipRow < Scraped::HTML
 
   field :constituency do
     # Anything after the first '(' is considered to be the faction name
+    # Example where constituency precedes faction:
+    #   "Guipuzcoa ( Grupo Parlamentario Mixto )"
+    # Example where contstituency is listed without faction:
+    #   "Navarra"
     constituency_and_faction_line.rpartition('(').reject(&:empty?).first
   end
 
   field :faction do
     # The faction is assumed to be the substring within parentheses
+    # Eg: Guipúzcoa ( Grupo Parlamentario Mixto )
     constituency_and_faction_line.match(/\(([^)]+)\)/){1}
   end
 
