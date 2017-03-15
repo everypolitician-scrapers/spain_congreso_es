@@ -5,22 +5,30 @@ class MembershipRow < Scraped::HTML
   TERM_IDS = ['Legislatura','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
 
   field :term do
-    a = TERM_IDS.index(noko.at_css('.principal').text.split.first)
-    binding.pry
-    a
+    TERM_IDS.index(noko.at_css('.principal').text.split.first)
   end
 
   field :constituency do
-    constituency_and_faction_line.rpartition('(').first.tidy
+    # Anything after the first '(' is considered to be the faction name
+    constituency_and_faction_line.rpartition('(').reject(&:empty?).first
   end
 
   field :faction do
-    constituency_and_faction_line.scan(/\(.*?\)/).last.gsub(/\(|\)/,'')
+    # The faction is assumed to be the substring within parentheses
+    constituency_and_faction_line.match(/\(([^)]+)\)/){1}
   end
 
   private
 
   def constituency_and_faction_line
-    noko.css('.SUBTITULO_INTERMEDIO').text.split('por').last
+    place_article_at_start(noko.css('.SUBTITULO_INTERMEDIO').text.split('por').last)
+  end
+
+  def place_article_at_start(str)
+    # Sometimes a constituency is displayed with the definited article in brackets:
+    # This function moves the article out of brackets and places it at the start
+    # "area (article) (faction)" becomes "article area (faction)"
+    article = str.match(/\(Los\)|\(Las\)|\(El\)|\(La\)/)[0]
+    "#{article.gsub(/\(|\)/,'')} #{str.gsub(article,'')}"
   end
 end
