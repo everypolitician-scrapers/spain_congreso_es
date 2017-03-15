@@ -1,24 +1,13 @@
 require 'scraped'
 
 class MembershipRow < Scraped::HTML
-  TERM_IDS_MAP = {
-    'Legislatura' => '0',
-    'I' => '1',
-    'II' => '2',
-    'III' => '3',
-    'IV' => '4',
-    'V' => '5',
-    'VI' => '6',
-    'VII' => '7',
-    'VIII' => '8',
-    'IX' => '9',
-    'X' => '10',
-    'XI' => '11',
-    'XII' => '12'
-  }.freeze
+
+  TERM_IDS = ['Legislatura','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
 
   field :term do
-    TERM_IDS_MAP[noko.at_css('.principal').text.split.first]
+    a = TERM_IDS.index(noko.at_css('.principal').text.split.first)
+    binding.pry
+    a
   end
 
   field :constituency do
