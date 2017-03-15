@@ -28,7 +28,7 @@ class MembershipRow < Scraped::HTML
     # Sometimes a constituency is displayed with the definited article in brackets:
     # This function moves the article out of brackets and places it at the start
     # "area (article) (faction)" becomes "article area (faction)"
-    article = str.match(/\(Los\)|\(Las\)|\(El\)|\(La\)/)[0]
-    "#{article.gsub(/\(|\)/,'')} #{str.gsub(article,'')}"
+    article = str[/\(Los\)|\(Las\)|\(El\)|\(La\)/] or return str
+    "#{article.gsub(/\(|\)/,'')} #{str.gsub(article,'')}" rescue binding.pry
   end
 end
