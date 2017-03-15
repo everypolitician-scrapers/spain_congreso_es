@@ -15,7 +15,7 @@ class MembershipRow < Scraped::HTML
   end
 
   field :faction do
-    constituency_and_faction_line.rpartition('(').last.split(')').first.tidy
+    constituency_and_faction_line.scan(/\(.*?\)/).last.gsub(/\(|\)/,'')
   end
 
   private
