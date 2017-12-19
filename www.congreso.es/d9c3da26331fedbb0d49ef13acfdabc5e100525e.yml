@@ -4,7 +4,7 @@ request:
   uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?next_page=/wc/fichaDiputado&idLegislatura=11&idDiputado=167
 response:
   status:
-    message: OK
-    code: 200
+    message: NOT OK
+    code: 500
   date:
-  - Sun, 20 Aug 2017 08:47:55 GMT
+  - Tue, 19 Dec 2017 16:07:02 GMT
