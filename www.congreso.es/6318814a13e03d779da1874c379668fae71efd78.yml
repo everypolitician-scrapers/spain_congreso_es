@@ -4,7 +4,7 @@ request:
   uri: http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/DiputadosTodasLegislaturas
 response:
   status:
-    message: OK
-    code: 200
+    message: NOT OK
+    code: 504
   date:
-  - Sun, 09 Sep 2018 20:44:43 GMT
+  - Mon, 10 Sep 2018 19:00:34 GMT
