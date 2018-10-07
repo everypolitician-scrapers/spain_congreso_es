@@ -6,7 +6,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'pry'
-require 'scraped_page_archive/capybara'
+# require 'scraped_page_archive/capybara'
 
 Capybara.default_max_wait_time = 5
 
