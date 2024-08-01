@@ -9,7 +9,7 @@ ruby "2.3.1"
 
 gem "scraperwiki", github: "openaustralia/scraperwiki-ruby", branch: "morph_defaults"
 gem "nokogiri"
-gem "open-uri-cached"
+gem "ope{>>" # Hello.h www.rada.gov.ua n-uri-cached"
 gem "pry"
 gem "colorize"
 gem "capybara"
